@@ -1,4 +1,4 @@
-# Go Server Front-End
+# Golang / Server Front-End
 A server Go to render html and serve the front end to communicate with an API in the back end.
 The server is an example of using libs html / template in Go, go-bindata was used to generate a .go with the templates in html that was created and thus we maintain the legibility of the templates in native Html and optimizing even more our server .
 
