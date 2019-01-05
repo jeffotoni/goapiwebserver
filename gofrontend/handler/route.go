@@ -72,7 +72,8 @@ func Start(cfg config.Config) *FrontEndServer {
 		util.Print("\033[37mStart Server\033[0m\n")
 		util.Print("      [POST] - " + rlogin + "\n")
 		util.Print("      [POST] - " + rregister + "\n")
-		util.Print("      [POST] - " + forgotpassword)
+		util.Print("      [POST] - " + forgotpassword + "\n")
+		util.Print("      [POST] - " + admin)
 		util.Print("\033[0m\n")
 
 		util.Print("     ---------------------------------------------------\n")
