@@ -2,6 +2,7 @@
 
 .EXPORT_ALL_VARIABLES:	
 
+SESSION_KEY = "gofrontend"
 PORT_SERVER = 5000
 AUTHORIZATION = "MTIzNEFVVEhPUklaQVRJT04="
 X_KEY = "MTIzNA=="
@@ -14,7 +15,7 @@ all:
 test:
 	@echo "\n"
 	@echo "\033[0;33m################################## go tests ##################################\033[0m"
-	go test
+	go test pkg/request/* 
 
 build dev:
 	@echo "\n"

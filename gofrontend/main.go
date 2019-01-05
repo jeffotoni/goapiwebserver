@@ -26,8 +26,8 @@ import (
 // start templates
 func init() {
 
+	// set config
 	config.SetEviroment()
-
 }
 
 func main() {
@@ -45,6 +45,6 @@ func main() {
 	signal.Notify(sigChan, os.Interrupt)
 	<-sigChan
 
-	util.Print("\nmain : Shutting down frontend")
+	util.Print("\nmain : Shutting down frontend\n")
 
 }
