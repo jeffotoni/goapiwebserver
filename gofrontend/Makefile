@@ -18,14 +18,14 @@ test:
 	@echo "\033[0;33m################################## go tests ##################################\033[0m"
 	go test pkg/request/* 
 
-build dev:
+build:
 	@echo "\n"
 	@echo "--------------------------------------------------------------------------------------"
 	@echo "\033[0;33m################################## build gofrontend ##################################\033[0m"
 	go build -o gofrontend && ./gofrontend
 	@echo "\033[0;32mfrontend generated\033[0m \033[0;33m[ok]\033[0m \n"
 
-build jeff:
+prod:
 	@echo "\033[0;33m################################## build go-bindata ##################################\033[0m"
 	go-bindata -o pkg/assets/binfrontend.go --pkg=assets web/templates/... web/static/...
 	@echo "\033[0;32mbindata generated\033[0m  \033[0;33m[ok]\033[0m "
@@ -33,14 +33,4 @@ build jeff:
 	@echo "--------------------------------------------------------------------------------------"
 	@echo "\033[0;33m################################## build gofrontend ##################################\033[0m"
 	go build -o gofrontend && ./gofrontend
-	@echo "\033[0;32mfrontend generated\033[0m \033[0;33m[ok]\033[0m \n"
-
-build prod:
-	@echo "\n"
-	@echo "\033[0;33m################################## build go-bindata ##################################\033[0m"
-	go-bindata -o pkg/assets/binfrontend.go --pkg=assets web/templates/... web/static/...
-	@echo "\033[0;32mbindata generated\033[0m  \033[0;33m[ok]\033[0m "
-	@echo "--------------------------------------------------------------------------------------"
-	@echo "\033[0;33m################################## build gofrontend ##################################\033[0m"
-	go build -o gofrontend
 	@echo "\033[0;32mfrontend generated\033[0m \033[0;33m[ok]\033[0m \n"
