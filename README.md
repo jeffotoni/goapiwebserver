@@ -6,23 +6,9 @@ We removed the lib fmt from our front-end server, we used the lib bufio by typin
 
 The front-end server is independent and communicates with an API on the back end.
 
-## Technologies 
+## API
+we have two apis, a front-end server that renders html and communicates via rEST with backend server.
+The backend is in another folder.
 
-	- Front End 
-	  - Golang Render HTML
-	  - Html
-	  - Js
-	  - Css
-
-	- Back End  
-	  - Golang
-
-## Install
-
-```go
-
-$ go get github.com/jeffotoni/goapiwebserver
-$ cd gofrontend
-$ make build
-
-```
+ - Front-End
+ - Back-End
