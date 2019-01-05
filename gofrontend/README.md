@@ -23,7 +23,6 @@ The front-end server is independent and communicates with an API on the back end
 
 $ go get github.com/jeffotoni/goapiwebserver
 $ cd gofrontend
-$ make build test
-$ make build dev
+$ make build
 
 ```
