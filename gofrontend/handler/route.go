@@ -20,6 +20,7 @@ const (
 	rlogin         = "/login"
 	rregister      = "/register"
 	forgotpassword = "/forgot/password"
+	admin          = "/admin"
 )
 
 // Routes
@@ -36,6 +37,7 @@ func Start(cfg config.Config) *FrontEndServer {
 	router.HandleFunc(rlogin, LoginHandler)
 	router.HandleFunc(rregister, LoginHandlerRegister)
 	router.HandleFunc(forgotpassword, ForgotPassHandlerRegister)
+	router.HandleFunc(admin, AdminHandler)
 	router.PathPrefix("/web/static/").Handler(http.StripPrefix("/web/static/", http.FileServer(http.Dir("./web/static"))))
 
 	// Create the HTML Server
@@ -45,7 +47,7 @@ func Start(cfg config.Config) *FrontEndServer {
 			Handler:        router,
 			ReadTimeout:    cfg.ReadTimeout,
 			WriteTimeout:   cfg.WriteTimeout,
-			MaxHeaderBytes: 1 << 26, // 64Mb
+			MaxHeaderBytes: cfg.MaxHeaderBytes,
 		},
 	}
 

@@ -16,6 +16,9 @@ const (
 )
 
 var (
+	HOST_MAXBYTE         = os.Getenv("HOST_MAXBYTE")
+	HOST_MAXBYTE_DEFAULT = string(1 << 26) // 64MB
+
 	HOST_SERVER         = os.Getenv("HOST_SERVER")
 	HOST_SERVER_DEFAULT = "localhost:"
 
@@ -28,12 +31,19 @@ var (
 
 // Config provides basic configuration
 type Config struct {
-	Host         string
-	ReadTimeout  time.Duration
-	WriteTimeout time.Duration
+	Host           string
+	ReadTimeout    time.Duration
+	WriteTimeout   time.Duration
+	MaxHeaderBytes int
 }
 
 func SetEviroment() {
+
+	if HOST_MAXBYTE == "" {
+		// base64 => 1234
+		HOST_MAXBYTE = HOST_MAXBYTE_DEFAULT
+		os.Setenv("HOST_MAXBYTE", HOST_MAXBYTE)
+	}
 
 	if X_KEY == "" {
 		// base64 => 1234

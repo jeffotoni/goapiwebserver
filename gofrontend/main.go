@@ -13,14 +13,12 @@ package main
 import (
 	"os"
 	"os/signal"
+	"strconv"
 	"time"
-)
 
-// external libs
-import (
 	"github.com/jeffotoni/goapiwebserver/gofrontend/config"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/handler"
-	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util"
+	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util" // external libs
 )
 
 // start templates
@@ -32,10 +30,14 @@ func init() {
 
 func main() {
 
+	// convert string to int
+	HOST_MAXBYTE, _ := strconv.Atoi(config.HOST_MAXBYTE)
+
 	serverCfg := config.Config{
-		Host:         config.HOST_SERVER,
-		ReadTimeout:  5 * time.Second,
-		WriteTimeout: 5 * time.Second,
+		Host:           config.HOST_SERVER,
+		ReadTimeout:    5 * time.Second,
+		WriteTimeout:   5 * time.Second,
+		MaxHeaderBytes: HOST_MAXBYTE,
 	}
 
 	htmlServer := handler.Start(serverCfg)
