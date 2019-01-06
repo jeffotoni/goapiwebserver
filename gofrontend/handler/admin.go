@@ -21,7 +21,7 @@ var adminTPL *template.Template
 func init() {
 
 	// forgot pass
-	adminHTML = assets.GoMustAssetString("web/templates/admin/admin.html")
+	adminHTML = assets.GoMustAssetString("templates/admin/admin.html")
 	adminTPL = template.Must(template.New("admin_index").Parse(adminHTML))
 }
 

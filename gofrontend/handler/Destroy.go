@@ -23,7 +23,7 @@ func init() {
 
 	pagetpl = "destroy"
 	// forgot pass
-	destroyHTML = assets.GoMustAssetString("web/templates/admin/destroy.html")
+	destroyHTML = assets.GoMustAssetString("templates/admin/destroy.html")
 	destroyTPL = template.Must(template.New(pagetpl).Parse(destroyHTML))
 }
 

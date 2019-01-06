@@ -21,7 +21,7 @@ var loginRegisterTpl *template.Template
 func init() {
 
 	// register
-	loginregisterHTML = assets.GoMustAssetString("web/templates/login-theme2-register.html")
+	loginregisterHTML = assets.GoMustAssetString("templates/login-theme2-register.html")
 	loginRegisterTpl = template.Must(template.New("login_register_view").Parse(loginregisterHTML))
 }
 

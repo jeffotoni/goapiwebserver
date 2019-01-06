@@ -91,7 +91,7 @@ func Start(cfg config.Config) *FrontEndServer {
 		util.Print("      - web/assets/img\n")
 		util.Print("      - web/static/css\n")
 		util.Print("      - web/static/js\n")
-		util.Print("      - web/templates\n")
+		util.Print("      - templates\n")
 
 		FrontEndServer.server.ListenAndServe()
 		FrontEndServer.wg.Done()

@@ -21,7 +21,7 @@ var forgotPasswordTpl *template.Template
 func init() {
 
 	// forgot pass
-	forgotPasswordHTML = assets.GoMustAssetString("web/templates/forgot-password.html")
+	forgotPasswordHTML = assets.GoMustAssetString("templates/forgot-password.html")
 	forgotPasswordTpl = template.Must(template.New("login_forgot_pass").Parse(forgotPasswordHTML))
 }
 

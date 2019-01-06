@@ -14,10 +14,10 @@ import (
 
 func PostForm(w http.ResponseWriter, r *http.Request) {
 
-	tplMap := map[string]interface{}{
-		"title":   "GOCRUD - Login",
-		"message": "",
-	}
+	// tplMap := map[string]interface{}{
+	// 	"title":   "GOCRUD - Login",
+	// 	"message": "",
+	// }
 
 	if r.Method == http.MethodPost {
 
@@ -95,7 +95,7 @@ func PostForm(w http.ResponseWriter, r *http.Request) {
 		// return
 	}
 
-	// err := templateHelper(w, tplMap, "web/templates/login-theme2.html", "./assets/login.html")
+	// err := templateHelper(w, tplMap, "templates/login-theme2.html", "./assets/login.html")
 	// if err != nil {
 	// 	http.Error(w, err.Error(), http.StatusInternalServerError)
 	// 	return

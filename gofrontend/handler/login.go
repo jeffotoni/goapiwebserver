@@ -22,7 +22,7 @@ var loginHomeTpl *template.Template
 func init() {
 
 	// login
-	loginHomeHTML = assets.GoMustAssetString("web/templates/login-theme2.html")
+	loginHomeHTML = assets.GoMustAssetString("templates/login-theme2.html")
 	loginHomeTpl = template.Must(template.New("login_view").Parse(loginHomeHTML))
 }
 
