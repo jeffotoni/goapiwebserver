@@ -26,3 +26,7 @@ $ cd gofrontend
 $ make build
 
 ```
+
+## Docker
+
+$ docker run -d -p 5001:5001 -e HOST_SERVER=0.0.0.0 --restart=always --name gofronted jeffotoni/gofrontend

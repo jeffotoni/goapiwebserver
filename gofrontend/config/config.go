@@ -20,7 +20,7 @@ var (
 	HOST_MAXBYTE_DEFAULT = string(1 << 26) // 64MB
 
 	HOST_SERVER         = os.Getenv("HOST_SERVER")
-	HOST_SERVER_DEFAULT = "localhost:"
+	HOST_SERVER_DEFAULT = "0.0.0.0:"
 
 	PORT_SERVER         = os.Getenv("PORT_SERVER")
 	PORT_SERVER_DEFAULT = "5001"
