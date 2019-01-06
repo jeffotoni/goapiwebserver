@@ -8,29 +8,69 @@ The front-end server is independent and communicates with an API on the back end
 
 ## Technologies 
 
-	- Front End 
+	- Front End Golang: version 1.11.2
 	  - Golang Render HTML
 	  - Html
 	  - Js
 	  - Css
+	  - img
 
 	- Back End  
 	  - Golang
 
-## Install
 
-```go
+## Structure Go Front-end
 
-$ go get github.com/jeffotoni/goapiwebserver
-$ cd gofrontend
-$ make build
+	- config
+	- handler
+	- mocks
+	- pkg
+		- assets
+		- request
+		- session
+		- util
+	- repo
+	- templates
+	- web
+		- static
+			- css
+				- admin
+				- fonts
+			- img
+			- js
 
-```
+## Docker With the static files in the image
 
-## Docker
+This image has the static files css, js and img.
+The disadvantage of this image is that if our web client growth, our deploy, backup etc will take a long time.
+One more and more efficient way would be to leave the static files on a CDN.
 
 ```docker
 
 $ docker run -d -p 5001:5001 -e HOST_SERVER=0.0.0.0 --restart=always --name gofronted jeffotoni/gofrontend
+
+```
+
+## Docker With files without the static files in the image
+
+We can serve static files using docker without having to upload them to image, we can use volume option with -v $(pwd)/web:/web
+
+```docker
+
+$ git clone http://github.com/jeffotoni/goapiwebserver
+$ cd goapiwebserver/gofrontend
+$ docker run -d -p 5001:5001 -e HOST_SERVER=0.0.0.0 $(pwd)/web:/web --restart=always --name gofronted jeffotoni/gofrontend
+
+```
+
+## Install build
+
+You can download the project in github and do the build, so golang version 1.11.2 has that is installed on your machine, you can check here https://golang.org/dl/
+
+```go
+
+$ git clone http://github.com/jeffotoni/goapiwebserver
+$ cd goapiwebserver/gofrontend
+$ make build
 
 ```

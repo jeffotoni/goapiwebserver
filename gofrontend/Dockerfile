@@ -24,7 +24,7 @@ RUN ls -lh
 FROM gcr.io/distroless/base
 
 # copy static diretory
-# COPY --from=builder /go/src/gofrontend/web /web
+COPY --from=builder /go/src/gofrontend/web /web
 
 # copy bin diretory
 COPY --from=builder /go/bin/gofrontend /
