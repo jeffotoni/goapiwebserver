@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
+	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
 )
 
 // Templates
@@ -51,19 +52,26 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		// make request in apiserver and validate user
+		// Do call to API server here
+
 		// if true create session and redirect admin
 		// if false not create session
 		// sessionName := session.Get("login", username, w, r)
 
-		msgErr = "Error user not exists!"
-		msgErr = "wrong password"
+		session.Set("session_user", "username", "jefferson otoni lima", w, r)
+
+		msgErr = "Session Creada"
+		//msgErr = "wrong password"
 
 		tplLoginHtml(msgErr, w, r)
 
 		/// redirecionar para /admin se tiver tudo ok
-		//logado = true
+		// logado = true
 
 	} else {
+
+		sessionName := session.Get("session_user", "username", w, r)
+		msgErr = "Ola, " + sessionName
 
 		tplLoginHtml(msgErr, w, r)
 	}
@@ -73,7 +81,6 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 	///
 	// saving login session
 	//session.Set("login", "jeff", "esta logado jefferson", w, r)
-
 	//util.Print("session exist: " + sessionName + "\n")
 
 }

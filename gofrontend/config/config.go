@@ -6,6 +6,7 @@ package config
 
 import (
 	"os"
+	"strconv"
 	"time"
 )
 
@@ -17,7 +18,7 @@ const (
 
 var (
 	HOST_MAXBYTE         = os.Getenv("HOST_MAXBYTE")
-	HOST_MAXBYTE_DEFAULT = string(1 << 26) // 64MB
+	HOST_MAXBYTE_DEFAULT = 1 << 26 // 64MB
 
 	HOST_SERVER         = os.Getenv("HOST_SERVER")
 	HOST_SERVER_DEFAULT = "0.0.0.0:"
@@ -41,7 +42,7 @@ func SetEviroment() {
 
 	if HOST_MAXBYTE == "" {
 		// base64 => 1234
-		HOST_MAXBYTE = HOST_MAXBYTE_DEFAULT
+		HOST_MAXBYTE = strconv.Itoa(HOST_MAXBYTE_DEFAULT)
 		os.Setenv("HOST_MAXBYTE", HOST_MAXBYTE)
 	}
 

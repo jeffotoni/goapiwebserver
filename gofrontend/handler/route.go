@@ -21,6 +21,9 @@ const (
 	rregister      = "/register"
 	forgotpassword = "/forgot/password"
 	admin          = "/admin"
+
+	// test destroy session
+	destroy = "/destroy"
 )
 
 // Routes
@@ -38,6 +41,10 @@ func Start(cfg config.Config) *FrontEndServer {
 	router.HandleFunc(rregister, LoginHandlerRegister)
 	router.HandleFunc(forgotpassword, ForgotPassHandlerRegister)
 	router.HandleFunc(admin, AdminHandler)
+
+	// test destroy
+	router.HandleFunc(destroy, DestroyHandler)
+
 	router.PathPrefix("/web/static/").Handler(http.StripPrefix("/web/static/", http.FileServer(http.Dir("./web/static"))))
 
 	// Create the HTML Server
@@ -62,7 +69,10 @@ func Start(cfg config.Config) *FrontEndServer {
 		util.Print("\033[0;31mHelp:\033[0m\n")
 		util.Print("\033[37mkeys for communication with goapiserver\033[0m\n")
 		util.Print("\033[0;32m")
+
+		util.Print("     - export HOST_SERVER:  " + config.HOST_SERVER + "\n")
 		util.Print("     - export PORT_SERVER:  " + config.PORT_SERVER + "\n")
+		util.Print("     - export HOST_MAXBYTE:  " + config.HOST_MAXBYTE + "\n")
 
 		util.Print("     ---------------------------------------------------\n")
 		util.Print("     - export X_KEY:                " + config.X_KEY + "\n")
