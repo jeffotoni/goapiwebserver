@@ -15,6 +15,31 @@ We run the wrk to do some stress tests and the curl in a for.
 ## Technologies 
 	- Back-end Golang: version 1.11.2
 
+## Pacakges
+
+I'm using the go mod, so do not need to do go get, but in case you need to.
+
+```sh
+
+$ go get -u github.com/dgrijalva/jwt-go
+$ go get -u github.com/didip/tollbooth
+$ go get -u github.com/go-sql-driver/mysql
+
+```
+
+## Golang mod
+
+The repository is already all correct, but in case you want to test go mod just remove in the root the api go.sum and go.mod.
+And run the go mod:
+
+```sh
+
+$ go mod init github.com/jeffotoni/goapiwebserver/goapiserver
+$ go build
+$ go vendor
+
+```
+
 ## Structure Go Front-end
 	
 	- cert
