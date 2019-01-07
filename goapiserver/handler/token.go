@@ -17,7 +17,7 @@ func Token(w http.ResponseWriter, r *http.Request) {
 
 	s1 := logg.Start()
 
-	if strings.ToUpper(r.Method) != "POST" && strings.ToUpper(r.Method) != "GET" {
+	if strings.ToUpper(r.Method) != "GET" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		jsonstr := `{"status":"error","msg":"Error the method has to be POST or GET!"}`
 		io.WriteString(w, jsonstr)

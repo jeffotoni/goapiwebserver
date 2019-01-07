@@ -2,8 +2,9 @@ github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumC
 github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
 github.com/didip/tollbooth v4.0.0+incompatible h1:ayQZYuF5QOxx3NdYRNuRVFLv9/2b64JtSUlewb+0TMo=
 github.com/didip/tollbooth v4.0.0+incompatible/go.mod h1:A9b0665CE6l1KmzpDws2++elm/CsuWBMa5Jv4WY0PEY=
-github.com/jeffotoni/goapiwebserver v0.0.0-20190107070406-6748be6c4dbe h1:wp76GQksYPt41prNBNrBbUpyIPdQutqK3QWbSHIB7c4=
-github.com/jeffotoni/goapiwebserver v0.0.0-20190107084232-5d5d2e70e943 h1:7UCm5uNxXHCLIqOJVQuwEzMlPnJkftn7+wFGMxOFu/c=
+github.com/go-sql-driver/mysql v1.4.1 h1:g24URVg0OFbNUTx9qqY1IRZ9D9z3iPyi5zKhQZpNwpA=
+github.com/go-sql-driver/mysql v1.4.1/go.mod h1:zAC/RDZ24gD3HViQzih4MyKcchzm+sOG5ZlKdlhCg5w=
+github.com/jeffotoni/goapiwebserver v0.0.0-20190107133544-8963259f0899 h1:Knmi2/4utE7yGF3o01YjgvRxDIf/6glscB8wAZm4ZfY=
 github.com/patrickmn/go-cache v2.1.0+incompatible h1:HRMgzkcYKYpi3C8ajMPV8OFXaaRUnok+kx1WdO15EQc=
 github.com/patrickmn/go-cache v2.1.0+incompatible/go.mod h1:3Qf8kWWT7OJRJbdiICTKqZju1ZixQ/KpMGzzAfe6+WQ=
 golang.org/x/time v0.0.0-20181108054448-85acf8d2951c h1:fqgJT0MGcGpPgpWU7VRdRjuArfcOvC4AoJmILihzhDg=

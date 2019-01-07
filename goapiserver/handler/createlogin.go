@@ -25,7 +25,7 @@ func SaveLogin(w http.ResponseWriter, r *http.Request) {
 	// 	Db = interf.(*sql.DB)
 	// } else {
 	// 	w.WriteHeader(http.StatusUnprocessableEntity)
-	// 	jsonstr := `{"status":"error","msg":"error ao fazer connect ConnPsql com Db.."}`
+	// 	jsonstr := `{"status":"error","msg":"error ao fazer connect Mysql com Db.."}`
 	// 	io.WriteString(w, jsonstr)
 	// 	logg.Show(SetEndPoint().PostApdata, strings.ToUpper(r.Method), "error", s1)
 	// 	return

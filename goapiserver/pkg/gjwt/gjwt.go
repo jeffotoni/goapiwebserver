@@ -5,7 +5,6 @@
 package gjwt
 
 import (
-	"crypto/rsa"
 	b64 "encoding/base64"
 	"encoding/json"
 	"fmt"
@@ -22,49 +21,18 @@ import (
 	"time"
 )
 
-var (
-
-	// default, we will load
-	// the keys into memory
-	privateKey *rsa.PrivateKey
-	publicKey  *rsa.PublicKey
-
-	// only if it will be used by files
-	pathPrivate = "./private.rsa"
-	pathPublic  = "./public.rsa.pub"
-
-	ProjectTitle = "jwt Goapiserver"
-
-	ExpirationHours = 24 // Hours
-	DayExpiration   = 30 // Days
-
-	// base64 = MTIzNDU2IzIwMjA=
-	// md5 = ff7ca77e69408bc3c3d7279e38364b4a
-	UserR = "123456#2020"
-
-	// base64 = MTIzNDU2YWplZmZvdG9uaTIwMjA=
-	// md5 = 16d25077bf7365532ba4fe539619b443
-	PassR = "123456ajeffotoni2020"
-)
-
-// Structure of our server configurations
-type JsonMsg struct {
-	Status string `json:"status"`
-	Msg    string `json:"msg"`
-}
-
 // jwt init
 func init() {
 
 	var errx error
 	privateByte := []byte(cert.RSA_PRIVATE)
-	privateKey, errx = jwt.ParseRSAPrivateKeyFromPEM(privateByte)
+	PrivateKey, errx = jwt.ParseRSAPrivateKeyFromPEM(privateByte)
 	if errx != nil {
 		return
 	}
 
 	publicByte := []byte(cert.RSA_PUBLIC)
-	publicKey, errx = jwt.ParseRSAPublicKeyFromPEM(publicByte)
+	PublicKey, errx = jwt.ParseRSAPublicKeyFromPEM(publicByte)
 	if errx != nil {
 		return
 	}
@@ -102,7 +70,7 @@ func generateJwt(model models.User) (string, string) {
 	token := jwt.NewWithClaims(jwt.SigningMethodRS256, claims)
 
 	// Transforming into string
-	tokenString, err := token.SignedString(privateKey)
+	tokenString, err := token.SignedString(PrivateKey)
 	if err != nil {
 		return "Could not sign the token!", "2006-01-02"
 	}
@@ -168,9 +136,6 @@ func CheckBasic(w http.ResponseWriter, r *http.Request) (ok bool, msgjson string
 		ok = true
 
 		return ok, string(jsonResult)
-		// w.WriteHeader(http.StatusOK)
-		// w.Header().Set("Content-Type", "application/json")
-		// w.Write(jsonResult)
 
 		/**
 		{
@@ -181,7 +146,6 @@ func CheckBasic(w http.ResponseWriter, r *http.Request) (ok bool, msgjson string
 
 	} else {
 
-		//
 		stringErr := "Invalid User or Key! " + auth[0] + " - " + auth[1]
 		msgjson = GetJson(w, "error", stringErr, http.StatusUnauthorized)
 
@@ -209,7 +173,7 @@ func GtokenJwt(w http.ResponseWriter, r *http.Request) bool {
 
 	// star
 	parsedToken, err := jwt.ParseWithClaims(token, &models.Claim{}, func(*jwt.Token) (interface{}, error) {
-		return publicKey, nil
+		return PublicKey, nil
 	})
 
 	if err != nil || !parsedToken.Valid {
@@ -271,7 +235,7 @@ func tokenJwtClaimsValid(w http.ResponseWriter, r *http.Request) bool {
 	if token != "" {
 		// start
 		parsedToken, err := jwt.ParseWithClaims(token, &models.Claim{}, func(*jwt.Token) (interface{}, error) {
-			return publicKey, nil
+			return PublicKey, nil
 		})
 
 		if err != nil || !parsedToken.Valid {

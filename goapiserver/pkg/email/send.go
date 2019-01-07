@@ -1,3 +1,7 @@
+// Go Api server
+// @jeffotoni
+// 2019-01-04
+
 package email
 
 import (
@@ -8,13 +12,11 @@ import (
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/jeffotoni/goapiwebserver/goapiserver/pkg/email"
 )
 
-func SendEmail(To, From, FromMsg, Nome, Projeto, EmailBounce, Bounce string) {
+func SendEmail(To, From, FromMsg, Nome, Projeto string) {
 
-	var Demail = email.DataEmail{To, From, FromMsg, "Error accessing api", email.TemplateEmail(Nome, Projeto, EmailBounce, Bounce)}
+	var Demail = DataEmail{To, From, FromMsg, "Error accessing api", TemplateEmail(Nome, Projeto)}
 
 	//
 	byteEmail, err := json.Marshal(Demail)
@@ -28,11 +30,11 @@ func SendEmail(To, From, FromMsg, Nome, Projeto, EmailBounce, Bounce string) {
 	defer afterFuncTimer.Stop()
 	// defer cancel() // cancel when we are finished consuming integers
 
-	req, err := http.NewRequest("POST", email.END_POINT_SEND, bytes.NewBuffer(byteEmail))
+	req, err := http.NewRequest("POST", END_POINT_SEND, bytes.NewBuffer(byteEmail))
 	req = req.WithContext(ctx)
 
-	req.Header.Set("X-Key", email.X_KEY)
-	req.Header.Set("Authorization", email.AUTORIZATION)
+	req.Header.Set("X-Key", X_KEY)
+	req.Header.Set("Authorization", AUTORIZATION)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}
