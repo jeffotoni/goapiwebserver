@@ -31,6 +31,8 @@ We run the wrk to do some stress tests and the curl in a for.
 
 ## Docker
 
+So that goapiserver works correctly you will need to set all environment variables
+
 ```docker
 
 $ docker run -d -p 5002:5002 \
@@ -41,7 +43,7 @@ $ docker run -d -p 5002:5002 \
 -e DB_PASSWORD=xxxxxxx \
 -e DB_PORT=3306 \
 -e DB_SORCE=mysql \
--e HOST_SERVER="http://localhost" \
+-e HOST_SERVER="0.0.0.0" \
 --restart=always \
 --name goapiserver jeffotoni/goapiserver
 
@@ -72,5 +74,42 @@ $ for ((i=1;i<=10000000;i++)); do curl  -X POST "localhost:5002/api/v1/ping"; do
 ```sh
 
 wrk -t2 -c300 -d30s -R10000 http://localhost:5002/api/v1/ping
+
+```
+
+## mocks and simulate
+
+Here we will find bench connection tests and ping token tests
+For the mocks to run the goapiserver needs to be running.
+
+you can choose the way you want to start in the application, or using docker or doing build.
+Remembering that the mysql database connection is all done via environment variables.
+
+```go
+
+$ git clone http://github.com/jeffotoni/goapiwebserver
+$ cd goapiwebserver/goapiserver/mocks/mysql
+$ go run mysql
+
+$ cd goapiwebserver/goapiserver/mocks/ping
+$ go run ping
+
+```
+
+## curl simulation
+
+```sh
+$ curl -H "Authorization: Basic keyuser=:key" localhost:5002/api/v1/token
+
+```
+
+## out json token
+
+```
+{
+	"token":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+	"expires":"2019-02-06",
+	"message":"use the token to access the endpoints"
+}
 
 ```
