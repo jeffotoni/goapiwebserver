@@ -13,7 +13,7 @@ import (
 	"github.com/jeffotoni/goapiwebserver/goapiserver/pkg/gjwt"
 )
 
-func AuthJwt() Adapter {
+func GtokenJwt() Adapter {
 	s1 := logg.Start()
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

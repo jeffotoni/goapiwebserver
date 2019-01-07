@@ -29,11 +29,21 @@ func StartServer(cfg config.Config) *GoServerHttp {
 	// POST handler /api/v1/ping
 	handlerApiPing := http.HandlerFunc(Ping)
 
-	// handler
+	// handler ping
 	mux.Handle(SetEndPoint().Ping, middle.Adapt(handlerApiPing,
 		middle.Limit(),
+		middle.MaxClients(config.MaxClients)))
+
+	// POST handler /api/v1/token
+	// Authorization: Basic key:keypass
+	handlerApiToken := http.HandlerFunc(Token)
+
+	// generate token jwt
+	// handler token
+	mux.Handle(SetEndPoint().PostToken, middle.Adapt(handlerApiToken,
+		middle.Limit(),
 		middle.MaxClients(config.MaxClients),
-		middle.AuthJwt()))
+		middle.GtokenJwt()))
 
 	// templates/index html
 	// if you want to activate this handler, the directory templates

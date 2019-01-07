@@ -193,8 +193,11 @@ func CheckBasic(w http.ResponseWriter, r *http.Request) (ok bool, msgjson string
 	return ok, msgjson
 }
 
-// AuthJwt
-func AuthJwt(w http.ResponseWriter, r *http.Request) bool {
+// GtokenJwt
+// here it will check the header if there are the keys
+// to authenticate and it will check with the system and generate
+// the token to access all the endpoints
+func GtokenJwt(w http.ResponseWriter, r *http.Request) bool {
 	auth := strings.SplitN(r.Header.Get("Authorization"), " ", 2)
 	if len(auth) != 2 || auth[0] != "Bearer" {
 		HttpWriteJson(w, "error", http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)

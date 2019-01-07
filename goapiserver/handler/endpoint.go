@@ -14,9 +14,9 @@ type Endpoint struct {
 func SetEndPoint() *Endpoint {
 
 	point := &Endpoint{
-		Ping:      "/api/v1/ping",  // test server
-		PostToken: "/api/v1/token", // insert
-		PostLogin: "/api/v1/login", // select
+		Ping:      "/api/v1/ping",  //
+		PostToken: "/api/v1/token", //
+		PostLogin: "/api/v1/login", //
 	}
 	return point
 }
