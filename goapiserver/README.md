@@ -1,22 +1,76 @@
 # Go Server Back-end
 
-This API is a server that plays the role of back-end. It is responsible for user authentication, application access release, modules, user profile and various other features.
+This API is a server that plays the backend role. It is responsible for user authentication via jwt and access to the other apis.
 
+The backend was created in standard library, we used some libs like jwt, and tollbooth.
 
-docker run -p 5002:5002 -e HOST_SERVER=0.0.0.0 --rm --name goapiserver jeffotoni/goapiserver
+We created a standard for backend development using standard library, we create our own and well-defined middlwares.
 
-go mod init github.com/jeffotoni/goapiwebserver/goapiserver
+A standard was born, which has yet to improve, but what has been implemented is already very easy to scale.
 
-for ((i=1;i<=10000000;i++)); do curl  -X POST "localhost:5002/api/v1/ping"; done
+The great advantage of this model is its portability and scalability, we leave the limit of requests above 10k req / s and connections by clients above 15k.
 
--H "Content-Type: application/json\
--H "Accept: application/json\
+We run the wrk to do some stress tests and the curl in a for.
 
-wrk -t2 -c100 -d30s -R5000 http://localhost:5002/api/v1/ping
+## Technologies 
+	- Back-end Golang: version 1.11.2
 
-$ curl -X POST  localhost:5002/api/v1/ping
+## Structure Go Front-end
+	
+	- cert
+	- config
+	- handler
+	- logg
+	- middleare
+	- mocks
+	- models
+	- pkg
+	- repo
+	- repo
+	- templates
 
-$ curl -X POST -H "Authorization: Basic MTIzNDU2IzIwMjA=:MTIzNDU2YWplZmZvdG9uaTIwMjA=" localhost:5002/api/v1/token
+## Docker
 
+```docker
 
+$ docker run -d -p 5002:5002 \
+-e REQUEST_SEC=10000 \
+-e DB_HOST=xxxxxxxxx \
+-e DB_NAME=goapiserver \
+-e DB_USER=goapiserver \
+-e DB_PASSWORD=xxxxxxx \
+-e DB_PORT=3306 \
+-e DB_SORCE=mysql \
+-e HOST_SERVER="http://localhost" \
+--restart=always \
+--name goapiserver jeffotoni/goapiserver
 
+$ docker -f logs goapiserver
+
+```
+
+## Install build
+
+You can download the project in github and do the build, so golang version 1.11.2 has that is installed on your machine, you can check here https://golang.org/dl/
+
+```go
+
+$ git clone http://github.com/jeffotoni/goapiwebserver
+$ cd goapiwebserver/goapiserver
+$ make build
+
+```
+
+## stress test
+
+```sh
+
+$ for ((i=1;i<=10000000;i++)); do curl  -X POST "localhost:5002/api/v1/ping"; done
+
+```
+
+```sh
+
+wrk -t2 -c300 -d30s -R10000 http://localhost:5002/api/v1/ping
+
+```
