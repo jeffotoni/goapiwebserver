@@ -65,26 +65,26 @@
 
  <script>
       function onSignIn(response) {
-            // Conseguindo as informações do seu usuário:
+            // Getting your user information:
             var perfil = response.getBasicProfile();
  
-            // Conseguindo o ID do Usuário
+            // Obtaining the User ID
             var userID = perfil.getId();
  
-            // Conseguindo o Nome do Usuário
+            // Obtaining the User Name
             var userName = perfil.getName();
  
-            // Conseguindo o E-mail do Usuário
+            // Obtaining the User's E-mail
             var userEmail = perfil.getEmail();
  
-            // Conseguindo a URL da Foto do Perfil
+            // Getting Profile Photo URL
             var userPicture = perfil.getImageUrl();
  
             document.getElementById('user-photo').src = userPicture;
             document.getElementById('user-name').innerText = userName;
             document.getElementById('user-email').innerText = userEmail;
  
-            // Recebendo o TOKEN que você usará nas demais requisições à API:
+            // Receiving the TOKEN that you will use in the other API requests:
             var LoR = response.getAuthResponse().id_token;
             console.log("~ le Tolkien: " + LoR);
         };

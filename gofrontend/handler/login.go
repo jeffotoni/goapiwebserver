@@ -5,11 +5,13 @@
 package handler
 
 import (
+	"encoding/json"
 	"html/template"
 	"net/http"
 
+	"github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
-	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
+	//"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
 )
 
 // Templates
@@ -54,25 +56,41 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 		// make request in apiserver and validate user
 		// Do call to API server here
 
-		// if true create session and redirect admin
-		// if false not create session
-		// sessionName := session.Get("login", username, w, r)
+		jsonToken := token.GetTokenApiServer()
 
-		session.Set("session_user", "username", "jefferson otoni lima", w, r)
+		// exist, use
+		if jsonToken != "error" {
 
-		msgErr = "Session Creada"
-		//msgErr = "wrong password"
+			//struct message token server
+			var stToken = &token.TokenStruct{}
+			json.Unmarshal([]byte(jsonToken), &stToken)
 
-		tplLoginHtml(msgErr, w, r)
+			// token exists, can continue
+			if stToken.Token != "" && len(stToken.Expires) == 10 {
 
-		/// redirecionar para /admin se tiver tudo ok
-		// logado = true
+				// check user and password
+				// call api login
+				//if login.Uservalid(stToken.Token, username, password) != "error" {
+
+				// sessionName := session.Get("login", username, w, r)
+				// session.Set("session_user", "username", "jefferson otoni lima", w, r)
+				http.Redirect(w, r, "/admin", http.StatusSeeOther)
+
+				// if true create session and redirect admin
+				// if false not create session
+				//}
+			}
+		} else {
+
+			// error
+			msgErr = "something very strange happened, try again"
+			tplLoginHtml(msgErr, w, r)
+		}
 
 	} else {
 
-		sessionName := session.Get("session_user", "username", w, r)
-		msgErr = "Ola, " + sessionName
-
+		//sessionName := session.Get("session_user", "username", w, r)
+		msgErr = "Enter ApiClient"
 		tplLoginHtml(msgErr, w, r)
 	}
 

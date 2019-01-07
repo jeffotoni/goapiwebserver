@@ -22,9 +22,9 @@ var (
 	ExpirationHours = 24 // Hours
 	DayExpiration   = 30 // Days
 
-	// base64 = MTIzNDU2IzIwMjA=
-	// md5 = ff7ca77e69408bc3c3d7279e38364b4a
-	UserR = "123456#2020"
+	// base64 = MTIzNDU2
+	// md5 =
+	UserR = "123456"
 
 	// base64 = MTIzNDU2YWplZmZvdG9uaTIwMjA=
 	// md5 = 16d25077bf7365532ba4fe539619b443

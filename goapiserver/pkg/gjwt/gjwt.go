@@ -79,7 +79,7 @@ func generateJwt(model models.User) (string, string) {
 	return tokenString, ExpiresDate
 }
 
-//
+// validates and generates jwt token
 func CheckBasic(w http.ResponseWriter, r *http.Request) (ok bool, msgjson string) {
 
 	ok = false
@@ -132,15 +132,14 @@ func CheckBasic(w http.ResponseWriter, r *http.Request) (ok bool, msgjson string
 			msgjson = GetJson(w, "error", "json.Marshal error generating!", http.StatusUnauthorized)
 			return
 		}
-
 		ok = true
-
 		return ok, string(jsonResult)
 
 		/**
 		{
 		  "Token": "39a3099b45634f6eb511991fddde83752_v2",
-		  "Expires": "2026-09-14"
+		  "Expires": "2026-09-14",
+		  "Message": "use the token to access the endpoints"
 		}
 		*/
 
@@ -192,11 +191,7 @@ func GtokenJwt(w http.ResponseWriter, r *http.Request) bool {
 	return true
 }
 
-// TokenGlobal = token
-// UserGlobal = claims.User
-// ExpiGlobal = fmt.Sprintf("%d", claims.ExpiresAt)
-// fmt.Println("User: ", claims.User)
-// func2(w, r)
+//takes the basic token and returns to work
 func GetSplitTokenBasic(w http.ResponseWriter, r *http.Request) string {
 	var Authorization string
 	Authorization = r.Header.Get("Authorization")
@@ -223,6 +218,7 @@ func GetSplitTokenBasic(w http.ResponseWriter, r *http.Request) string {
 	}
 }
 
+//check if basic token exists
 func CheckJwt(w http.ResponseWriter, r *http.Request) bool {
 	if !tokenJwtClaimsValid(w, r) {
 		return false
@@ -230,6 +226,7 @@ func CheckJwt(w http.ResponseWriter, r *http.Request) bool {
 	return true
 }
 
+// validate and check the token
 func tokenJwtClaimsValid(w http.ResponseWriter, r *http.Request) bool {
 	token := GetSplitTokenBasic(w, r)
 	if token != "" {
