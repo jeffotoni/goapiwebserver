@@ -13,4 +13,7 @@ I did some stress testing and is holding 5k to 10k of req / s connections to the
 
 The best test would be with lambda, but as the time is short, as soon as I pass this correria I will mount a poc and create stress tests with lambda to see the result...
 
-We create Dockerfile and put the services in container, then we can put in docker-compose and as it grows, with some microservices like sending emails that can turn into a microservice, such as the auth of the login that could turn another
+We create Dockerfile and put the services in container, then we can put in docker-compose and as it grows, with some microservices like sending emails that can turn into a microservice, such as the auth of the login that could turn another.
+
+The Docker images were created in hub.docker, they are all public.
+
