@@ -48,6 +48,7 @@ One more and more efficient way would be to leave the static files on a CDN.
 ```docker
 
 $ docker run -d -p 5001:5001 -e HOST_SERVER=0.0.0.0 --restart=always --name gofronted jeffotoni/gofrontend
+$ docker logs -f gofrontend
 
 ```
 

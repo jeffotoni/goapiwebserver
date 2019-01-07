@@ -40,16 +40,47 @@ $ go vendor
 
 ```
 
+## Generate the keys
+
+To generate the JWT token we are using openssl, do not need to generate if you do not want to, we take the keys to memory to avoid opening the file for generating the keys.
+We did with the configuration files in the same way nothing on disk everything in environment variables.
+
+```
+
+$ openssl genrsa -out private.rsa 1024
+$ openssl rsa -in private.rsa -pubout > public.rsa.pub
+
+```
+
 ## Structure Go Front-end
-	
+
 	- cert
 	- config
 	- handler
+		- createlogin.go
+		- endpoint.go
+		- home.go
+		- ping.go
+		- route.go
+		- token.go
 	- logg
 	- middleare
+		- middleware-adapter.go
+		- middleware-auth-jwt.go
+		- middleware-limit.go
+		- middleware-maxlicent.go
+		- middleware-notify.go
 	- mocks
+		- ping
+		- mysql
 	- models
 	- pkg
+		- assets
+		- email
+		- gjwt
+		- mysql
+		- template
+		- util
 	- repo
 	- repo
 	- templates
