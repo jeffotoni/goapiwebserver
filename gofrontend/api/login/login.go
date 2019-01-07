@@ -11,6 +11,9 @@ import (
 	"io/ioutil"
 	"net/http"
 	"time"
+
+	tok "github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
+	//tok "github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 )
 
 type AdLogin struct {
@@ -21,7 +24,7 @@ type AdLogin struct {
 // Let's call the login endpoint
 func Uservalid(token, user, password string) string {
 
-	var Dlogin = AdLogin{Login_email: user, Logi_password: password}
+	var Dlogin = AdLogin{Logi_email: user, Logi_password: password}
 
 	byteLogin, err := json.Marshal(Dlogin)
 	if err != nil {
@@ -32,10 +35,10 @@ func Uservalid(token, user, password string) string {
 	afterFuncTimer := time.AfterFunc(3*time.Second, func() { cancel() })
 	defer afterFuncTimer.Stop()
 
-	req, err := http.NewRequest("POST", API_HOST_SERVER+ApiEndpoint().PostLogin, bytes.NewBuffer(byteLogin))
+	req, err := http.NewRequest("POST", tok.API_HOST_SERVER+tok.ApiEndpoint().GetLogin, bytes.NewBuffer(byteLogin))
 	req = req.WithContext(ctx)
 
-	req.Header.Set("Authorization", AUTHORIZATION_BASIC)
+	req.Header.Set("Authorization", tok.AUTHORIZATION_BASIC)
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)

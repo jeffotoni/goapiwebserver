@@ -6,3 +6,5 @@ github.com/gorilla/securecookie v1.1.1 h1:miw7JPhV+b/lAHSXz4qd/nN9jRiAFV5FwjeKyC
 github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
 github.com/gorilla/sessions v1.1.3 h1:uXoZdcdA5XdXF3QzuSlheVRUvjl+1rKY7zBXL68L9RU=
 github.com/gorilla/sessions v1.1.3/go.mod h1:8KCfur6+4Mqcc6S0FEfKuN15Vl5MgXW92AE8ovaJD0w=
+github.com/jeffotoni/goapiwebserver v0.0.0-20190107212444-24f105542221 h1:q655mGlOEhc+YmXO8Gy3j5z1u2YHTVF14R+1I2TwRc8=
+github.com/jeffotoni/goapiwebserver/goapiserver v0.0.0-20190107212444-24f105542221 h1:9FLAo2DJ1Ls2j7Cn+GvbmghqygnhEvH5de0Znljrex4=
