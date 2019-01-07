@@ -17,9 +17,9 @@ func Ping(w http.ResponseWriter, r *http.Request) {
 
 	s1 := logg.Start()
 
-	if strings.ToUpper(r.Method) != "POST" {
+	if strings.ToUpper(r.Method) != "POST" && strings.ToUpper(r.Method) != "GET" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		jsonstr := `{"status":"error","msg":"Error O método tem que ser POST!"}`
+		jsonstr := `{"status":"error","msg":"Error the method has to be POST or GET!"}`
 		io.WriteString(w, jsonstr)
 		logg.Show(SetEndPoint().Ping, strings.ToUpper(r.Method), "error", s1)
 		return
@@ -39,7 +39,7 @@ func PingV2(w http.ResponseWriter, r *http.Request) {
 
 	if strings.ToUpper(r.Method) != "POST" && strings.ToUpper(r.Method) != "GET" && strings.ToUpper(r.Method) != "PUT" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		jsonstr := `{"status":"error","msg":"Error The method has to be POST/GET OU PUT!"}`
+		jsonstr := `{"status":"error","msg":"Error The method has to be POST/GET or PUT!"}`
 		io.WriteString(w, jsonstr)
 		logg.Show(SetEndPoint().Ping, strings.ToUpper(r.Method), "error", s1)
 		return
@@ -49,6 +49,6 @@ func PingV2(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	jsonstr := `{"status":"ok","msg":"pong","method";"` + strings.ToUpper(r.Method) + `"}`
 	io.WriteString(w, jsonstr)
-	logg.Show(SetEndPoint().Ping, strings.ToUpper(r.Method), "sucesso", s1)
+	logg.Show(SetEndPoint().Ping, strings.ToUpper(r.Method), "success", s1)
 	return
 }

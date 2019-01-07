@@ -15,4 +15,6 @@ type ResponseToken struct {
 	Token string `json:"token"`
 
 	Expires string `json:"expires"`
+
+	Message string `json:"message"`
 }

@@ -23,34 +23,27 @@ type GoServerHttp struct {
 
 func StartServer(cfg config.Config) *GoServerHttp {
 
-	// Creating limiter for all handlers
-	// or one for each handler. Your choice.
-	// This limiter basically says: allow at most NewLimiter request per 1 second.
-	//limiter := tollbooth.NewLimiter(1, nil)
-
-	// Limit only GET and POST requests.
-	//limiter.SetIPLookups([]string{"RemoteAddr", "X-Forwarded-For", "X-Real-IP"}).SetMethods([]string{"GET", "POST"})
-
 	// DefaultServeMux
 	mux := http.NewServeMux()
 
-	// POST handler /v1/api/ping
+	// POST handler /api/v1/ping
 	handlerApiPing := http.HandlerFunc(Ping)
 
-	// http.Handle("/", Adapt(indexHandler, AddHeader("Server", "Mine"),
-	//                                     CheckAuth(providers),
-	//                                     CopyMgoSession(db),
-	//                                     Notify(logger),
-	//                                   )
-
+	// handler
 	mux.Handle(SetEndPoint().Ping, middle.Adapt(handlerApiPing,
-		middle.MaxClients(config.MaxClients)))
+		middle.Limit(),
+		middle.MaxClients(config.MaxClients),
+		middle.AuthJwt()))
 
-	//mux.Handle(confserv.Ping, tollbooth.LimitFuncHandler(limiter, HandlerFuncAuth(HandlerValidate, MaxClients(handlerApiPing, config.MaxClients))))
-
-	// template index html
+	// templates/index html
+	// if you want to activate this handler, the directory templates
+	// where the html file is located must
+	// be sent next to the binary to work, as it needs to parse the html
 	// mux.HandleFunc("/", tpl.ShowHtml)
-	mux.HandleFunc("/", homeHandler)
+
+	// this handler implements the version
+	// that does not need the html file
+	mux.Handle("/", http.HandlerFunc(homeHandler))
 
 	// Create the HTML Server
 	ApiServer := GoServerHttp{
@@ -116,6 +109,7 @@ func Setenv(cfg config.Config) {
 	util.Print("     - export PORT_SERVER:   " + config.PORT_SERVER + "\n")
 	util.Print("     - export HOST_MAXBYTE:  " + config.HOST_MAXBYTE + "\n")
 	util.Print("     - export WD_LEVEL:      " + config.WD_LEVEL + "\n")
+	util.Print("     - export REQUEST_SEC:   " + config.REQUEST_SEC_STR2 + "\n")
 
 	util.Print("\n\033[37mkeys for the client to communicate\033[0m\n")
 	util.Print("     ---------------------------------------------------\n")

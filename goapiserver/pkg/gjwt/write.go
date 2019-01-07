@@ -17,7 +17,7 @@ func WriteJson(Status string, Msg string) {
 	msgJsonStruct := &JsonMsg{Status, Msg}
 	msgJson, errj := json.Marshal(msgJsonStruct)
 	if errj != nil {
-		msg := `{"status":"error","msg":"We could not generate the json error!"}`
+		msg := `{"status":"error","message":"We could not generate the json error!"}`
 		util.Print(msg)
 		return
 	}
@@ -31,7 +31,7 @@ func HttpWriteJson(w http.ResponseWriter, Status string, Msg string, httpStatus 
 	msgJsonStruct := &JsonMsg{Status, Msg}
 	msgJson, errj := json.Marshal(msgJsonStruct)
 	if errj != nil {
-		msg := `{"status":"error","msg":"We could not generate the json error!"}`
+		msg := `{"status":"error","message":"We could not generate the json error!"}`
 		w.WriteHeader(http.StatusForbidden)
 		io.WriteString(w, msg)
 		return
@@ -39,4 +39,15 @@ func HttpWriteJson(w http.ResponseWriter, Status string, Msg string, httpStatus 
 	w.WriteHeader(httpStatus)
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(msgJson)
+}
+
+// Returns json by typing on http
+func GetJson(w http.ResponseWriter, Status string, Msg string, httpStatus int) string {
+	msgJsonStruct := &JsonMsg{Status, Msg}
+	msgJson, errj := json.Marshal(msgJsonStruct)
+	if errj != nil {
+		msg := `{"status":"error","message":"We could not generate the json error!"}`
+		return msg
+	}
+	return string(msgJson)
 }

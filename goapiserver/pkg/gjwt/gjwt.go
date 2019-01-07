@@ -13,6 +13,7 @@ import (
 
 	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/jeffotoni/goapiwebserver/goapiserver/cert"
+	"github.com/jeffotoni/goapiwebserver/goapiserver/config"
 	"github.com/jeffotoni/goapiwebserver/goapiserver/models/jwt"
 
 	"net/http"
@@ -37,13 +38,13 @@ var (
 	ExpirationHours = 24 // Hours
 	DayExpiration   = 30 // Days
 
-	// md5(userR) = 123456ajeffotoni2020
-	//  => 16d25077bf7365532ba4fe539619b443
-	UserR = "16d25077bf7365532ba4fe539619b443"
+	// base64 = MTIzNDU2IzIwMjA=
+	// md5 = ff7ca77e69408bc3c3d7279e38364b4a
+	UserR = "123456#2020"
 
-	// md5(PassR) = 123456#2020
-	// => ff7ca77e69408bc3c3d7279e38364b4a
-	PassR = "ff7ca77e69408bc3c3d7279e38364b4a"
+	// base64 = MTIzNDU2YWplZmZvdG9uaTIwMjA=
+	// md5 = 16d25077bf7365532ba4fe539619b443
+	PassR = "123456ajeffotoni2020"
 )
 
 // Structure of our server configurations
@@ -85,7 +86,7 @@ func generateJwt(model models.User) (string, string) {
 	ExpiresDateAll := time.Unix(ExpiresInt64, 0)
 
 	// Date
-	ExpiresDate := ExpiresDateAll.Format("2009-09-02")
+	ExpiresDate := ExpiresDateAll.Format(config.LayoutDate)
 
 	// claims Token data, the header
 	claims := models.Claim{
@@ -111,33 +112,29 @@ func generateJwt(model models.User) (string, string) {
 }
 
 //
-func AuthBasic(w http.ResponseWriter, r *http.Request) {
+func CheckBasic(w http.ResponseWriter, r *http.Request) (ok bool, msgjson string) {
+
+	ok = false
+	msgjson = `{"status":"error","message":"While trying to authenticate your keys"}`
 
 	// Authorization Basic base64 Encode
 	auth := strings.SplitN(r.Header.Get("Authorization"), " ", 2)
 	if len(auth) != 2 || auth[0] != "Basic" {
-		//
-		HttpWriteJson(w, "error", http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
+		msgjson = GetJson(w, "error", http.StatusText(http.StatusUnauthorized), http.StatusUnauthorized)
 		return
 	}
-
-	//
 	tokenBase64 := strings.Trim(auth[1], " ")
-
-	//
 	tokenBase64 = strings.TrimSpace(tokenBase64)
 
 	// token 64
 	authToken64 := strings.SplitN(tokenBase64, ":", 2)
 	if len(authToken64) != 2 || authToken64[0] == "" || authToken64[1] == "" {
-		HttpWriteJson(w, "error", "token base 64 invalid!", http.StatusUnauthorized)
+
+		msgjson = GetJson(w, "error", "token base 64 invalid!", http.StatusUnauthorized)
 		return
 	}
 
-	//
 	tokenUserEnc := authToken64[0]
-
-	//
 	keyUserEnc := authToken64[1]
 
 	// User, Login byte
@@ -156,27 +153,24 @@ func AuthBasic(w http.ResponseWriter, r *http.Request) {
 	if tokenUserDecodeS == UserR && keyUserDecS == PassR {
 		var model models.User
 		model.Login = tokenUserDecodeS
-		//model.Password = keyUserDec
 		model.Password = ""
 		model.Role = "admin"
-
+		tokenMsg := "use the token to access the endpoints"
 		token, expires := generateJwt(model)
-		result := models.ResponseToken{token, expires}
+		result := models.ResponseToken{token, expires, tokenMsg}
 		jsonResult, err := json.Marshal(result)
 
 		if err != nil {
-			HttpWriteJson(w, "error", "json.Marshal error generating!", http.StatusUnauthorized)
+			msgjson = GetJson(w, "error", "json.Marshal error generating!", http.StatusUnauthorized)
 			return
 		}
 
-		//
-		w.WriteHeader(http.StatusOK)
+		ok = true
 
-		//
-		w.Header().Set("Content-Type", "application/json")
-
-		//
-		w.Write(jsonResult)
+		return ok, string(jsonResult)
+		// w.WriteHeader(http.StatusOK)
+		// w.Header().Set("Content-Type", "application/json")
+		// w.Write(jsonResult)
 
 		/**
 		{
@@ -189,18 +183,14 @@ func AuthBasic(w http.ResponseWriter, r *http.Request) {
 
 		//
 		stringErr := "Invalid User or Key! " + auth[0] + " - " + auth[1]
+		msgjson = GetJson(w, "error", stringErr, http.StatusUnauthorized)
 
-		//
-		w.WriteHeader(http.StatusForbidden)
-
-		//
-		w.Header().Set("Content-Type", "application/json")
-
-		//
-		HttpWriteJson(w, "error", stringErr, http.StatusUnauthorized)
+		return ok, msgjson
 	}
 
 	defer r.Body.Close()
+
+	return ok, msgjson
 }
 
 // AuthJwt
@@ -240,7 +230,7 @@ func AuthJwt(w http.ResponseWriter, r *http.Request) bool {
 // ExpiGlobal = fmt.Sprintf("%d", claims.ExpiresAt)
 // fmt.Println("User: ", claims.User)
 // func2(w, r)
-func GetSplitTokenJwt(w http.ResponseWriter, r *http.Request) string {
+func GetSplitTokenBasic(w http.ResponseWriter, r *http.Request) string {
 	var Authorization string
 	Authorization = r.Header.Get("Authorization")
 	if Authorization == "" {
@@ -253,7 +243,8 @@ func GetSplitTokenJwt(w http.ResponseWriter, r *http.Request) string {
 
 	if Authorization != "" {
 		auth := strings.SplitN(Authorization, " ", 2)
-		if len(auth) != 2 || strings.TrimSpace(strings.ToLower(auth[0])) != "bearer" {
+
+		if len(auth) != 2 || strings.TrimSpace(strings.ToLower(auth[0])) != "basic" {
 			return ""
 		}
 
@@ -273,7 +264,7 @@ func CheckJwt(w http.ResponseWriter, r *http.Request) bool {
 }
 
 func tokenJwtClaimsValid(w http.ResponseWriter, r *http.Request) bool {
-	token := GetSplitTokenJwt(w, r)
+	token := GetSplitTokenBasic(w, r)
 	if token != "" {
 		// start
 		parsedToken, err := jwt.ParseWithClaims(token, &models.Claim{}, func(*jwt.Token) (interface{}, error) {

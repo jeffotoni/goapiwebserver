@@ -2,6 +2,7 @@ package handler
 
 import (
 	"html/template"
+	"io"
 	"net/http"
 
 	"github.com/jeffotoni/goapiwebserver/goapiserver/pkg/assets"
@@ -22,13 +23,19 @@ func init() {
 }
 
 func homeHandler(w http.ResponseWriter, r *http.Request) {
-
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
+	//accept only "/"
+	if r.URL.Path == "/" {
 
-	fullData := map[string]interface{}{
-		"NavigationBar": template.HTML(indexHtml),
-		"Name":          "Go ApiServer",
+		fullData := map[string]interface{}{
+			"NavigationBar": template.HTML(indexHtml),
+			"Name":          "Go ApiServer",
+		}
+		assets.Render(w, r, indexTpl, "index_view", fullData)
+	} else {
+
+		msg := `{"status":"error","message":"this endpoint does not exist"}`
+		w.WriteHeader(http.StatusNotAcceptable)
+		io.WriteString(w, msg)
 	}
-
-	assets.Render(w, r, indexTpl, "index_view", fullData)
 }
