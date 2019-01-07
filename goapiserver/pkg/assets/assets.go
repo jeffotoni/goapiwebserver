@@ -1,16 +1,21 @@
 // Front-end in Go server
 // @jeffotoni
-// 04/01/2019
+// 2019-01-04
 
-package handler
+package assets
 
 import (
 	"bytes"
 	"html/template"
 	"net/http"
 
-	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util"
+	"github.com/jeffotoni/goapiwebserver/goapiserver/pkg/util"
 )
+
+// GoMustAssetString returns the asset
+func GoMustAssetString(strtext string) string {
+	return string(MustAsset(strtext))
+}
 
 /////////// template func
 // Render a template, or server error

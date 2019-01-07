@@ -1,6 +1,6 @@
 // Front-end in Go server
 // @jeffotoni
-// 04/01/2019
+// 2019-01-04
 
 package handler
 
@@ -89,7 +89,7 @@ func tplLoginHtml(msgerror string, w http.ResponseWriter, r *http.Request) {
 
 	// if you have logged in enter the admin
 	// environment otherwise stay logged in
-	Push(w, "/static/css/login-theme2.css")
+	assets.Push(w, "/static/css/login-theme2.css")
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	fullData := map[string]interface{}{
@@ -99,5 +99,5 @@ func tplLoginHtml(msgerror string, w http.ResponseWriter, r *http.Request) {
 
 	// ok destroy session
 	// session.Destroy("login", "jeff", w, r)
-	Render(w, r, loginHomeTpl, "login_view", fullData)
+	assets.Render(w, r, loginHomeTpl, "login_view", fullData)
 }

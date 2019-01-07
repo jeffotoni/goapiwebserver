@@ -1,6 +1,6 @@
 // Front-end in Go server
 // @jeffotoni
-// 04/01/2019
+// 2019-01-04
 
 package config
 
@@ -38,7 +38,7 @@ type Config struct {
 	MaxHeaderBytes int
 }
 
-func SetEviroment() {
+func Setenv() {
 
 	if HOST_MAXBYTE == "" {
 		// base64 => 1234

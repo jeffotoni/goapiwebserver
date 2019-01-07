@@ -1,6 +1,6 @@
 // Front-end in Go server
 // @jeffotoni
-// 04/01/2019
+// 2019-01-04
 //
 // Always searching for the best optimization in Go, I used the lib bufio
 // to write directly to stdou and I eliminated the use of lib fmt.
@@ -25,7 +25,7 @@ import (
 func init() {
 
 	// set config
-	config.SetEviroment()
+	config.Setenv()
 }
 
 func main() {

@@ -1,6 +1,6 @@
 // Front-end in Go server
 // @jeffotoni
-// 04/01/2019
+// 2019-01-04
 
 package handler
 
@@ -33,5 +33,5 @@ func ForgotPassHandlerRegister(w http.ResponseWriter, r *http.Request) {
 	fullData := map[string]interface{}{
 		"NavigationBar": template.HTML(forgotPasswordHTML),
 	}
-	Render(w, r, forgotPasswordTpl, "login_forgot_pass", fullData)
+	assets.Render(w, r, forgotPasswordTpl, "login_forgot_pass", fullData)
 }

@@ -1,6 +1,6 @@
 // Front-end in Go server
 // @jeffotoni
-// 04/01/2019
+// 2019-01-04
 
 package handler
 
@@ -42,5 +42,5 @@ func DestroyHandler(w http.ResponseWriter, r *http.Request) {
 		"NavigationBar": template.HTML(destroyHTML),
 		"Username":      menssage,
 	}
-	Render(w, r, destroyTPL, pagetpl, fullData)
+	assets.Render(w, r, destroyTPL, pagetpl, fullData)
 }

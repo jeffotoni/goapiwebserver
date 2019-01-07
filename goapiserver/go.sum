@@ -1,0 +1,11 @@
+github.com/dgrijalva/jwt-go v3.2.0+incompatible h1:7qlOGliEKZXTDg6OTjfoBKDXWrumCAMpl/TFQ4/5kLM=
+github.com/dgrijalva/jwt-go v3.2.0+incompatible/go.mod h1:E3ru+11k8xSBh+hMPgOLZmtrrCbhqsmaPHjLKYnJCaQ=
+github.com/gorilla/context v1.1.1/go.mod h1:kBGZzfjB9CEq2AlWe17Uuf7NDRt0dE0s8S51q0aT7Yg=
+github.com/gorilla/mux v1.6.2/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
+github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
+github.com/gorilla/sessions v1.1.3/go.mod h1:8KCfur6+4Mqcc6S0FEfKuN15Vl5MgXW92AE8ovaJD0w=
+github.com/jeffotoni/fileserver v0.0.0-20180925183814-17b012e42c08 h1:1pw4sGZ8s6YQFAc3Ht+YQ1ILY/Se1uyBWtusc+EL81E=
+github.com/jeffotoni/fileserver v0.0.0-20180925183814-17b012e42c08/go.mod h1:08Un1W7CV83JLO0MgEUUHgihPadeyH/uvtMwLyK0J00=
+github.com/jeffotoni/goapiwebserver v0.0.0-20190106235153-cd35e480f957 h1:eeUzgfuzl8W+mWhjImvTkHa/ZGFevhjtGjo/1/ggPFE=
+github.com/jeffotoni/goapiwebserver/gofrontend v0.0.0-20190106235153-cd35e480f957 h1:NPqWNDHKRQfGqfQGhnQ1BHqyloWlf5yUDV0eDX9jo5g=
+github.com/jeffotoni/goapiwebserver/gofrontend v0.0.0-20190106235153-cd35e480f957/go.mod h1:ZitvhwnaS7iRJTHCxfN9EZJkiHTIzrxM6RLzDTl99lY=

@@ -27,7 +27,7 @@ build:
 
 prod:
 	@echo "\033[0;33m################################## build go-bindata ##################################\033[0m"
-	go-bindata -o pkg/assets/binfrontend.go --pkg=assets templates/... web/static/...
+	go-bindata -o pkg/assets/binfrontend.go --nocompress --pkg=assets templates/... web/static/...
 	@echo "\033[0;32mbindata generated\033[0m  \033[0;33m[ok]\033[0m "
 	@echo "\n"
 	@echo "--------------------------------------------------------------------------------------"
