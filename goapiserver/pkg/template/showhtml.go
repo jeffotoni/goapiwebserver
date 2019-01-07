@@ -2,7 +2,8 @@
 // @jeffotoni
 // 2019-01-04
 
-package handler
+// template
+package tpl
 
 import (
 	"bytes"
@@ -17,7 +18,7 @@ import (
 )
 
 //
-func IndexHtml(w http.ResponseWriter, r *http.Request) {
+func ShowHtml(w http.ResponseWriter, r *http.Request) {
 
 	// convert string to int
 	WD_LEVEL, _ := strconv.Atoi(config.WD_LEVEL)

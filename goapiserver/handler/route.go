@@ -11,7 +11,7 @@ import (
 	"time"
 
 	"github.com/jeffotoni/goapiwebserver/goapiserver/config"
-	middler "github.com/jeffotoni/goapiwebserver/goapiserver/middleware"
+	middle "github.com/jeffotoni/goapiwebserver/goapiserver/middleware"
 	"github.com/jeffotoni/goapiwebserver/goapiserver/pkg/util"
 )
 
@@ -43,11 +43,11 @@ func StartServer(cfg config.Config) *GoServerHttp {
 	//                                     Notify(logger),
 	//                                   )
 
-	mux.Handle(SetEndPoint().Ping, middler.MaxClients(handlerApiPing, config.MaxClients))
+	mux.Handle(SetEndPoint().Ping, middle.Adapt(handlerApiPing, middle.MaxClients(handlerApiPing, config.MaxClients)))
 	//mux.Handle(confserv.Ping, tollbooth.LimitFuncHandler(limiter, HandlerFuncAuth(HandlerValidate, MaxClients(handlerApiPing, config.MaxClients))))
 
 	// template index html
-	// mux.HandleFunc("/", middler.IndexHtml)
+	// mux.HandleFunc("/", tpl.ShowHtml)
 	mux.HandleFunc("/", homeHandler)
 
 	// Create the HTML Server
