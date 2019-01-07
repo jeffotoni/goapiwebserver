@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func MaxClients(h http.Handler, n int) Adapter {
+func MaxClients(n int) Adapter {
 	sema := make(chan struct{}, n)
 	return func(h http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {

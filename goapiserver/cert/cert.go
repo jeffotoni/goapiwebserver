@@ -2,7 +2,7 @@
 // @jeffotoni
 // 2019-01-04
 //
-package handler
+package cert
 
 // openssl genrsa -out private.rsa 1024
 // openssl rsa -in private.rsa -pubout > public.rsa.pub

@@ -19,7 +19,7 @@ func TemplateEmail(Nome, Projeto string) (tmpl string) {
 	<tr>
 		<td colspan="3">
 			<div style="padding: 10px 30px 30px; font-size: 18px; line-height: 1.5; color: #424242;">
-				Foi executado um endpoint na Api Ged. <br />
+				Foi executado um endpoint na Api Server. <br />
 				Voc&ecirc; poder&aacute; visualizar os logs de toda execu&ccedil;&atilde;o.<br />'
 			</div>
 		</td>

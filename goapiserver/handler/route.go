@@ -43,7 +43,9 @@ func StartServer(cfg config.Config) *GoServerHttp {
 	//                                     Notify(logger),
 	//                                   )
 
-	mux.Handle(SetEndPoint().Ping, middle.Adapt(handlerApiPing, middle.MaxClients(handlerApiPing, config.MaxClients)))
+	mux.Handle(SetEndPoint().Ping, middle.Adapt(handlerApiPing,
+		middle.MaxClients(config.MaxClients)))
+
 	//mux.Handle(confserv.Ping, tollbooth.LimitFuncHandler(limiter, HandlerFuncAuth(HandlerValidate, MaxClients(handlerApiPing, config.MaxClients))))
 
 	// template index html
