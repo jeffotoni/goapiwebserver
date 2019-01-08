@@ -45,6 +45,16 @@ func StartServer(cfg config.Config) *GoServerHttp {
 		middle.MaxClients(config.MaxClients),
 		middle.GtokenJwt()))
 
+	// POST handler /api/v1/login
+	// user and pass
+	handlerApiTLogin := http.HandlerFunc(Login)
+
+	// validate with method user jwt
+	mux.Handle(SetEndPoint().GetLogin, middle.Adapt(handlerApiTLogin,
+		middle.Limit(),
+		middle.MaxClients(config.MaxClients),
+		middle.AuthJwt()))
+
 	// templates/index html
 	// if you want to activate this handler, the directory templates
 	// where the html file is located must

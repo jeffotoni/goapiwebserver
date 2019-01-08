@@ -19,7 +19,7 @@ func Token(w http.ResponseWriter, r *http.Request) {
 
 	if strings.ToUpper(r.Method) != "GET" {
 		w.WriteHeader(http.StatusMethodNotAllowed)
-		jsonstr := `{"status":"error","msg":"Error the method has to be POST or GET!"}`
+		jsonstr := `{"status":"error","message":"Error the method has to be POST or GET!"}`
 		io.WriteString(w, jsonstr)
 		logg.Show(SetEndPoint().Ping, strings.ToUpper(r.Method), "error", s1)
 		return
@@ -27,7 +27,7 @@ func Token(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json; charset=utf-8")
 	w.WriteHeader(http.StatusOK)
-	jsonstr := `{"status":"success","msg":"pong","method";"` + strings.ToUpper(r.Method) + `"}`
+	jsonstr := `{"status":"success","message":"pong","method";"` + strings.ToUpper(r.Method) + `"}`
 	io.WriteString(w, jsonstr)
 	logg.Show(SetEndPoint().PostToken, strings.ToUpper(r.Method), "success", s1)
 	return

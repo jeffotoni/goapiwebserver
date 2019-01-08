@@ -23,7 +23,7 @@ func main() {
 		Db = interf.(*sql.DB)
 	} else {
 
-		jsonstr := `{"status":"error","msg":"error ao fazer connect Mysql com Db.."}`
+		jsonstr := `{"status":"error","message":"error ao fazer connect Mysql com Db.."}`
 		log.Println(jsonstr)
 		return
 	}
@@ -35,13 +35,13 @@ func main() {
 	errqy := row.Scan(&countx)
 	if errqy != nil {
 
-		jsonstr := `{"status":"error","msg":"Error QueryRow ad_login"}`
+		jsonstr := `{"status":"error","message":"Error QueryRow ad_login"}`
 		log.Println(jsonstr)
 		return
 	}
 
 	if countx > 0 {
-		jsonstr := `{"status":"success","msg":"Hello, exist"}`
+		jsonstr := `{"status":"success","message":"Hello, exist"}`
 		log.Println(jsonstr)
 		return
 	}

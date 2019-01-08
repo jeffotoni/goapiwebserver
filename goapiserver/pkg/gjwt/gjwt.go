@@ -205,8 +205,7 @@ func GetSplitTokenBasic(w http.ResponseWriter, r *http.Request) string {
 
 	if Authorization != "" {
 		auth := strings.SplitN(Authorization, " ", 2)
-
-		if len(auth) != 2 || strings.TrimSpace(strings.ToLower(auth[0])) != "basic" {
+		if len(auth) != 2 || strings.TrimSpace(strings.ToLower(auth[0])) != "bearer" {
 			return ""
 		}
 

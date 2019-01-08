@@ -33,6 +33,6 @@ var (
 
 // Structure of our server configurations
 type JsonMsg struct {
-	Status string `json:"status"`
-	Msg    string `json:"msg"`
+	Status  string `json:"status"`
+	Message string `json:"message"`
 }

@@ -23,7 +23,7 @@ import (
 // token and authenticating via jwt on
 // the server
 type Ping struct {
-	Msg string `json:"msg"`
+	Message string `json:"message"`
 }
 
 type TokenStruct struct {
@@ -53,8 +53,8 @@ func ShootUrl(Url string, Token string) string {
 		body, _ := ioutil.ReadAll(resp.Body)
 		fmt.Println("response Body:", string(body))
 		json.Unmarshal([]byte(string(body)), &ping)
-		msg2 := ping.Msg
-		ping.Msg = ""
+		msg2 := ping.Message
+		ping.Message = ""
 		return string(msg2)
 	} else {
 		ping.Msg = ""

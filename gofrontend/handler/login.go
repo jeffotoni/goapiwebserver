@@ -11,7 +11,9 @@ import (
 
 	"github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
-	//"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
+
+	//"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"|
+	"github.com/jeffotoni/goapiwebserver/gofrontend/api/login"
 )
 
 // Templates
@@ -70,15 +72,15 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 				// check user and password
 				// call api login
-				//if login.Uservalid(stToken.Token, username, password) != "error" {
+				if login.Uservalid(stToken.Token, username, password) != "error" {
 
-				// sessionName := session.Get("login", username, w, r)
-				// session.Set("session_user", "username", "jefferson otoni lima", w, r)
-				http.Redirect(w, r, "/admin", http.StatusSeeOther)
+					// sessionName := session.Get("login", username, w, r)
+					// session.Set("session_user", "username", "jefferson otoni lima", w, r)
+					http.Redirect(w, r, "/admin", http.StatusSeeOther)
 
-				// if true create session and redirect admin
-				// if false not create session
-				//}
+					// if true create session and redirect admin
+					// if false not create session
+				}
 			}
 		} else {
 
