@@ -6,7 +6,7 @@ package login
 
 import (
 	"context"
-	"fmt"
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -18,20 +18,8 @@ import (
 	//tok "github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 )
 
-type AdLogin struct {
-	Logi_email    string `json:"logi_email"`
-	Logi_password string `json:"logi_password"`
-}
-
 // Let's call the login endpoint
-func Uservalid(token, user, password string) string {
-
-	//var Dlogin = AdLogin{Logi_email: user, Logi_password: password}
-	// byteLogin, err := json.Marshal(Dlogin)
-	// if err != nil {
-	// 	return string("error")
-	// }
-
+func Uservalid(token, email, password string) string {
 	// Url and endpoint
 	apiUrl := tok.API_HOST_SERVER
 
@@ -44,19 +32,17 @@ func Uservalid(token, user, password string) string {
 	defer afterFuncTimer.Stop()
 
 	data := url.Values{}
-	data.Set("username", user)
+	data.Set("email", email)
 	data.Set("password", password)
 
 	u, _ := url.ParseRequestURI(apiUrl)
 	u.Path = resource
 	urlStr := u.String()
 
-	fmt.Println(urlStr)
-
-	req, err := http.NewRequest("POST", apiUrl, strings.NewReader(data.Encode()))
+	req, err := http.NewRequest("POST", urlStr, strings.NewReader(data.Encode()))
 	req = req.WithContext(ctx)
 
-	req.Header.Set("Authorization", tok.AUTHORIZATION_BASIC)
+	req.Header.Set("Authorization", "Bearer "+tok.ObjectToken())
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 	req.Header.Add("Content-Length", strconv.Itoa(len(data.Encode())))
 
@@ -68,9 +54,24 @@ func Uservalid(token, user, password string) string {
 	defer resp.Body.Close()
 
 	if resp.Status == "200 OK" {
-		bodyDataLogin, _ := ioutil.ReadAll(resp.Body)
-		return string(bodyDataLogin)
+		type MessageJson struct {
+			Status  string `json:"status"`
+			Message string `json:"message"`
+		}
+		var mJson = MessageJson{}
+		bodyMsg, _ := ioutil.ReadAll(resp.Body)
+		if err := json.Unmarshal(bodyMsg, &mJson); err != nil {
+			return string("error")
+		}
+		// check if success
+		if strings.ToLower(mJson.Status) == "success" {
+			return string("success")
+		} else {
+			return string("error")
+		}
 	} else {
+
+		// try again 2 times
 		return string("error")
 	}
 }

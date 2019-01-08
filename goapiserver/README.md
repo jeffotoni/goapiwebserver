@@ -154,8 +154,11 @@ $ go run ping
 
 ## curl simulation
 
+### Get Token JWT
+
 ```sh
-$ curl -H "Authorization: Basic keyuser=:key" localhost:5002/api/v1/token
+
+$ curl -H "Authorization: Basic <keyuser>=:<keyaccess>" localhost:5002/api/v1/token
 
 ```
 
@@ -167,5 +170,16 @@ $ curl -H "Authorization: Basic keyuser=:key" localhost:5002/api/v1/token
 	"expires":"2019-02-06",
 	"message":"use the token to access the endpoints"
 }
+
+```
+
+### Auth JWT Login
+
+```sh
+
+$ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
+	-H "Authorization: Bearer xxxxxxxxxxxxx" \
+	-d "email=putnamehere&password=passhere" \
+	localhost:5002/api/v1/login
 
 ```

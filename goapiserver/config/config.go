@@ -40,8 +40,8 @@ var (
 	X_KEY         = os.Getenv("X_KEY")
 	AUTHORIZATION = os.Getenv("AUTHORIZATION")
 
-	X_KEY_DEFAULT        = "MTIzNDU2"                            //123456
-	AUTORIZATION_DEFAULT = "Bearer MTIzNDU2YWplZmZvdG9uaTIwMjA=" // 123456ajeffotoni2020
+	X_KEY_DEFAULT         = "MTIzNDU2"                                    //123456
+	AUTHORIZATION_DEFAULT = "Basic MTIzNDU2:MTIzNDU2YWplZmZvdG9uaTIwMjA=" // 123456ajeffotoni2020
 
 	READTIMEOUT  = 5 * time.Second
 	WRITETIMEOUT = 10 * time.Second
@@ -82,7 +82,7 @@ func Setenv() {
 	}
 
 	if AUTHORIZATION == "" {
-		AUTHORIZATION = AUTORIZATION_DEFAULT
+		AUTHORIZATION = AUTHORIZATION_DEFAULT
 		os.Setenv("AUTHORIZATION", AUTHORIZATION)
 	}
 

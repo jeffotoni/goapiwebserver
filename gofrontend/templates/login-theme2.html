@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="login-form">
-    <form action="/login" method="post">
+    <form action="/login" method="post" enctype="">
         <h2 class="text-center">{{.MsgError}}</h2>		
         <div class="text-center social-btn">
             <!-- <a href="#" class="btn btn-primary btn-block"><i class="fa fa-facebook"></i> Sign in with <b>Facebook</b></a>
@@ -42,7 +42,7 @@
         <div class="form-group">
         	<div class="input-group">
                 <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                <input type="text" class="form-control" name="username" placeholder="Username" required="required">
+                <input type="text" class="form-control" name="email" placeholder="Email" required="required">
             </div>
         </div>
 		<div class="form-group">

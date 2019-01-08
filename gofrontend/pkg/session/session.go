@@ -11,6 +11,10 @@ import (
     "github.com/gorilla/sessions"
 )
 
+var (
+    NAME_SESSION = "SESSION_SYS"
+)
+
 // session key being set in makefile
 var store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
 
@@ -21,6 +25,11 @@ var store = sessions.NewCookieStore([]byte(os.Getenv("SESSION_KEY")))
         HttpOnly: true,
     }
 */
+
+func NameSession() string {
+
+    return NAME_SESSION
+}
 
 // saving session
 func Set(session_name, session_key, session_value string, w http.ResponseWriter, r *http.Request) {

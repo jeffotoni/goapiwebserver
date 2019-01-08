@@ -12,8 +12,8 @@ import (
 	"github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
 
-	//"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"|
 	"github.com/jeffotoni/goapiwebserver/gofrontend/api/login"
+	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
 )
 
 // Templates
@@ -34,7 +34,7 @@ func init() {
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	//var logado bool
-	msgErr := "Sign in"
+	msgErr := "Enter ApiClient"
 
 	if r.Method == http.MethodPost {
 
@@ -44,15 +44,19 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		username := r.FormValue("username")
+		email := r.FormValue("email")
 		password := r.FormValue("password")
 
-		if username == "" {
-			msgErr = "form error username!"
+		if email == "" {
+			msgErr = "form error email!"
+			tplLoginHtml(msgErr, w, r)
+			return
 		}
 
 		if password == "" {
 			msgErr = "form error password!"
+			tplLoginHtml(msgErr, w, r)
+			return
 		}
 
 		// make request in apiserver and validate user
@@ -69,17 +73,20 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 			// token exists, can continue
 			if stToken.Token != "" && len(stToken.Expires) == 10 {
-
 				// check user and password
 				// call api login
-				if login.Uservalid(stToken.Token, username, password) != "error" {
-
-					// sessionName := session.Get("login", username, w, r)
-					// session.Set("session_user", "username", "jefferson otoni lima", w, r)
+				if login.Uservalid(stToken.Token, email, password) == "success" {
+					// create session
+					session.Set(session.NameSession(), "email", email, w, r)
 					http.Redirect(w, r, "/admin", http.StatusSeeOther)
-
 					// if true create session and redirect admin
 					// if false not create session
+				} else {
+
+					// destroy session
+					session.Destroy(session.NameSession(), "email", w, r)
+					msgErr = "your password or login does not match!"
+					tplLoginHtml(msgErr, w, r)
 				}
 			}
 		} else {
@@ -91,7 +98,7 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 	} else {
 
-		//sessionName := session.Get("session_user", "username", w, r)
+		//sessionName := session.Get("session_user", "email", w, r)
 		msgErr = "Enter ApiClient"
 		tplLoginHtml(msgErr, w, r)
 	}

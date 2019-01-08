@@ -6,6 +6,7 @@ package token
 
 import (
 	"context"
+	"encoding/json"
 	"io/ioutil"
 	"net/http"
 	"time"
@@ -23,6 +24,17 @@ func SetToken(token string) {
 
 func GetToken() string {
 	return TOKEN_VALID
+}
+
+func ObjectToken() string {
+	// {"token":"xxx","expires":"2019-02-06","message":"use the token to access the endpoints"}
+	byt := []byte(GetToken())
+	var jsonToken = TokenStruct{}
+	if err := json.Unmarshal(byt, &jsonToken); err != nil {
+		// clean token
+		SetToken("")
+	}
+	return jsonToken.Token
 }
 
 // client can use the token and access all available

@@ -34,7 +34,7 @@ func SendEmail(To, From, FromMsg, Nome, Projeto string) {
 	req = req.WithContext(ctx)
 
 	req.Header.Set("X-Key", X_KEY)
-	req.Header.Set("Authorization", AUTORIZATION)
+	req.Header.Set("Authorization", AUTHORIZATION)
 	req.Header.Set("Content-Type", "application/json")
 
 	client := &http.Client{}

@@ -2,9 +2,11 @@
 // @jeffotoni
 // 2019-01-04
 
-package model
+package mlogin
 
-type Login struct {
+type AdLoginAuth struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type LoginJson struct {

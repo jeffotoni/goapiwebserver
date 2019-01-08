@@ -27,7 +27,7 @@ func init() {
 
 // LoginHandlerRegister renders the homepage view template
 func AdminHandler(w http.ResponseWriter, r *http.Request) {
-
+	//sessionName := session.Get("session_email", email, w, r)
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
 	fullData := map[string]interface{}{

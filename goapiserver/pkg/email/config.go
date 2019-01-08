@@ -8,7 +8,7 @@ var (
 	URL_SEND_EMAIL = "https://sendmail.s3apis.com"
 	END_POINT_SEND = URL_SEND_EMAIL + "/api/v1/send"
 	X_KEY          = "MTIzNDU2Nzg5MA=="
-	AUTORIZATION   = "Bearer MTIzNDU2Nzg5MGF1dG9yaXphdGlvbmJlYXJlZDIwMjA="
+	AUTHORIZATION  = "Bearer MTIzNDU2Nzg5MGF1dG9yaXphdGlvbmJlYXJlZDIwMjA="
 )
 
 type DataEmail struct {

@@ -23,7 +23,7 @@ func main() {
 		Db = interf.(*sql.DB)
 	} else {
 
-		jsonstr := `{"status":"error","message":"error ao fazer connect Mysql com Db.."}`
+		jsonstr := `{"status":"error","message":"error when doing mysql connect with Db"}`
 		log.Println(jsonstr)
 		return
 	}

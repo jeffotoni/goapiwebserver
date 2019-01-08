@@ -83,9 +83,7 @@ func Connect() interface{} {
 	fn := func() interface{} {
 
 		MyDb.Mydb, err = sql.Open(DB_SORCE, DBINFO)
-
-		fmt.Println(DBINFO)
-
+		//fmt.Println(DBINFO)
 		if err != nil {
 			errordb := fmt.Sprintf("Unable to connection to database: %v\n", err)
 			log.Println("error:: ", errordb)

@@ -131,10 +131,14 @@ func Setenv(cfg config.Config) {
 	util.Print("     - export WD_LEVEL:      " + config.WD_LEVEL + "\n")
 	util.Print("     - export REQUEST_SEC:   " + config.REQUEST_SEC_STR2 + "\n")
 
-	util.Print("\n\033[37mkeys for the client to communicate\033[0m\n")
+	util.Print("\n\033[37mkeys for the client to communicate private Key\033[0m\n")
 	util.Print("     ---------------------------------------------------\n")
 	util.Print("     - export X_KEY:                " + config.X_KEY + "\n")
 	util.Print("     - export AUTHORIZATION: " + config.AUTHORIZATION + "\n")
+
+	util.Print("\n\033[37mkeys for the client to communicate private Token\033[0m\n")
+	util.Print("     ---------------------------------------------------\n")
+	util.Print("     - export AUTHORIZATION: Bearer <token>\n")
 
 	util.Print("\n\033[37mEnd Points\033[0m\n")
 	util.Print("\033[0;33m[POST]\033[0m...........{public}................ -> \033[0;36m" + SetEndPoint().Ping)
