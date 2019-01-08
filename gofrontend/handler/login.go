@@ -33,7 +33,7 @@ func init() {
 // LoginHandler renders the homepage view template
 func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
-	//var logado bool
+	//var bool
 	msgErr := "Enter ApiClient"
 
 	if r.Method == http.MethodPost {

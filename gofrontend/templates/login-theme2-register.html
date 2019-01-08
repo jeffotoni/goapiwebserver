@@ -3,8 +3,8 @@
     2019-01-04
     HTML register LOGIN front-end in Go
 -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 
@@ -32,29 +32,37 @@
                    <div class="panel-title text-center">
                         <h1 class="title">New Account</h1>
                     </div>
-                </div> 
+                </div>
+    
+                {{if .msgErr}}
+                <div class="panel-title text-center">
+                        <p class="title red">{{.msgErr}}</p>
+                    </div>
+                {{end}}
+
                 <div class="main-login main-center">
-                    <form class="form-horizontal" method="post" action="#">
+                    <form method="post" action="/register" enctype="">
                         
                         <div class="form-group">
-                            <label for="name" class="cols-sm-2 control-label">Your Name</label>
+                            <label for="name" class="cols-sm-2 control-label">Your First Name</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="name" id="name"  placeholder="Enter your Name"/>
+                                    <input type="text" class="form-control" name="firstname" id="firstname"  placeholder="Enter your first Name"/>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                            <label for="name" class="cols-sm-2 control-label">Your Last Name</label>
                             <div class="cols-sm-10">
                                 <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                                    <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="lastname" id="lastname"  placeholder="Enter your last Name"/>
                                 </div>
                             </div>
                         </div>
+
 
                         <div class="form-group">
                             <label for="phone" class="cols-sm-2 control-label">Phone</label>
@@ -62,6 +70,16 @@
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
                                     <input type="text" class="form-control" name="phone" id="phone"  placeholder="Enter your Phone"/>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="cols-sm-2 control-label">Your Email</label> <span class="label-span-form">(will be your user)</span>
+                            <div class="cols-sm-10">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" name="email" id="email"  placeholder="Enter your Email"/>
                                 </div>
                             </div>
                         </div>
@@ -87,7 +105,7 @@
                         </div>
 
                         <div class="form-group ">
-                            <button type="button" class="btn btn-primary btn-lg btn-block login-button">Register</button>
+                            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Register</button>
                         </div>
                         <div class="login-register">
                             <a href="login">Login</a>

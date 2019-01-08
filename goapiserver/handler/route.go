@@ -50,7 +50,15 @@ func StartServer(cfg config.Config) *GoServerHttp {
 	handlerApiTLogin := http.HandlerFunc(Login)
 
 	// validate with method user jwt
-	mux.Handle(SetEndPoint().GetLogin, middle.Adapt(handlerApiTLogin,
+	mux.Handle(SetEndPoint().PostGetLogin, middle.Adapt(handlerApiTLogin,
+		middle.Limit(),
+		middle.MaxClients(config.MaxClients),
+		middle.AuthJwt()))
+
+	// POST handler User
+	// /api/v1/user
+	handlerApiTUser := http.HandlerFunc(User)
+	mux.Handle(SetEndPoint().PostGetUser, middle.Adapt(handlerApiTUser,
 		middle.Limit(),
 		middle.MaxClients(config.MaxClients),
 		middle.AuthJwt()))
@@ -145,7 +153,9 @@ func Setenv(cfg config.Config) {
 	util.Print("\n")
 	util.Print("\033[0;33m[GET]\033[0m............{private key}........... -> \033[0;36m" + SetEndPoint().PostToken)
 	util.Print("\n")
-	util.Print("\033[0;33m[POST]\033[0m...........{private token}......... -> \033[0;36m" + SetEndPoint().GetLogin)
+	util.Print("\033[0;33m[POST]\033[0m...........{private token}......... -> \033[0;36m" + SetEndPoint().PostGetLogin)
+	util.Print("\n")
+	util.Print("\033[0;33m[GET]\033[0m...........{private token}.......... -> \033[0;36m" + SetEndPoint().PostGetLogin + "/{email}")
 	util.Print("\n")
 	util.Print("\033[0;33m[POST]\033[0m...........{private token}......... -> \033[0;36m" + SetEndPoint().PostSignup)
 	util.Print("\n")

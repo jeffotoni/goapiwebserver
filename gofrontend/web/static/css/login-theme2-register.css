@@ -74,3 +74,16 @@ input::-webkit-input-placeholder {
     line-height:5px;
     padding-bottom:5px;
 }
+
+.panel-title text-center{
+    font-size: 11px;    
+}
+
+.label-span-form{
+    font-size: 10px;
+}
+
+.panel-title .red {
+    font-size: 17px;
+    color: red;
+}

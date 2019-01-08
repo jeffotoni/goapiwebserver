@@ -9,10 +9,11 @@ import "os"
 type ApiEndpoints struct {
 	Ping              string
 	PostToken         string
-	GetLogin          string
+	PostGetLogin      string
 	PostSignup        string
 	PostUpProfile     string
 	PostForgotPssword string
+	PostGetUser       string
 }
 
 type TokenStruct struct {
@@ -77,12 +78,13 @@ func SetEnvKeys() {
 func ApiEndpoint() *ApiEndpoints {
 
 	point := &ApiEndpoints{
-		Ping:              "/api/v1/ping",            //
-		PostToken:         "/api/v1/token",           //
-		GetLogin:          "/api/v1/login",           //
-		PostSignup:        "/api/v1/signup",          //
-		PostUpProfile:     "/api/v1/profile",         //
-		PostForgotPssword: "/api/v1/forgot-password", //
+		Ping:              "/api/v1/ping",            // POST OR GET
+		PostToken:         "/api/v1/token",           // GET
+		PostGetLogin:      "/api/v1/login",           // Post
+		PostSignup:        "/api/v1/signup",          // POST
+		PostUpProfile:     "/api/v1/profile",         // POST
+		PostForgotPssword: "/api/v1/forgot-password", // POST
+		PostGetUser:       "/api/v1/user",            // POST/GET
 	}
 	return point
 }
