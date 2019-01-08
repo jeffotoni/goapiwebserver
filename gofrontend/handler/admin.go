@@ -9,6 +9,7 @@ import (
 	"net/http"
 
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
+	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
 )
 
 // Templates
@@ -27,11 +28,18 @@ func init() {
 
 // LoginHandlerRegister renders the homepage view template
 func AdminHandler(w http.ResponseWriter, r *http.Request) {
-	//sessionName := session.Get("session_email", email, w, r)
-	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 
-	fullData := map[string]interface{}{
-		"NavigationBar": template.HTML(adminHTML),
+	sessionName := session.Get(session.NameSession(), "email", w, r)
+	// session user
+	if sessionName != "" {
+
+		w.Header().Set("Content-Type", "text/html; charset=utf-8")
+
+		fullData := map[string]interface{}{
+			"NavigationBar": template.HTML(adminHTML),
+		}
+		assets.Render(w, r, adminTPL, "admin_index", fullData)
+	} else {
+		http.Redirect(w, r, "/login", http.StatusSeeOther)
 	}
-	assets.Render(w, r, adminTPL, "admin_index", fullData)
 }
