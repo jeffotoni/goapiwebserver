@@ -28,7 +28,7 @@ func main() {
 		return
 	}
 
-	idUser := 1
+	idUser := 2
 
 	row := Db.QueryRow("SELECT count(logi_id) as count FROM ad_login WHERE logi_id=?", idUser)
 	var countx int

@@ -12,8 +12,17 @@ import (
 	"github.com/jeffotoni/goapiwebserver/gofrontend/api/login"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
+	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util"
 )
+
+type RegisterUser struct {
+	Lastname  string
+	Firstname string
+	Phone     string
+	Email     string
+	MsgErr    string
+}
 
 // Templates
 var loginregisterHTML string
@@ -23,7 +32,6 @@ var loginRegisterTpl *template.Template
 // the inits are running on goruntine, it's dangerous,
 // it can run after main main func.
 func init() {
-
 	// register
 	loginregisterHTML = assets.GoMustAssetString("templates/login-theme2-register.html")
 	loginRegisterTpl = template.Must(template.New("login_register_view").Parse(loginregisterHTML))
@@ -34,6 +42,8 @@ func LoginHandlerRegister(w http.ResponseWriter, r *http.Request) {
 
 	//var bool
 	msgErr := ""
+	var rUserNew = &RegisterUser{}
+	rUserNew.MsgErr = msgErr
 
 	if r.Method == http.MethodPost {
 
@@ -48,54 +58,62 @@ func LoginHandlerRegister(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		phone := r.FormValue("phone")
 		password := r.FormValue("password")
-		confirm := r.FormValue("confifm")
+		confirm := r.FormValue("confirm")
 
 		if firstname == "" {
-			msgErr = "form error first name!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error first name!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
+		} else {
+			rUserNew.Firstname = firstname
 		}
 
 		if lastname == "" {
-			msgErr = "form error last name!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error last name!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
+		} else {
+			rUserNew.Lastname = lastname
 		}
 
 		if email == "" {
-			msgErr = "form error email!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error email!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
 		}
 
 		// valid email
 		if !util.ValidEmail(email) {
-			msgErr = "form error email invalid!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error email invalid!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
+		} else {
+			rUserNew.Email = email
 		}
 
 		if phone == "" {
-			msgErr = "form error phone!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error phone!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
+		} else {
+			rUserNew.Phone = phone
 		}
 
 		if password == "" {
-			msgErr = "form error password!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error password!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
 		}
 
 		if confirm == "" {
-			msgErr = "form error confirm!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "form error confirm!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
 		}
 
 		if confirm != password {
-			msgErr = "Your password is not the same!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "Your password is not the same!"
+			tplRegisterHtml(rUserNew, w, r)
 			return
 		}
 
@@ -113,40 +131,44 @@ func LoginHandlerRegister(w http.ResponseWriter, r *http.Request) {
 				// call api login
 				if login.ExistUser(stToken.Token, email) == "success" {
 					// can not create user
-					msgErr = "User exists try another one!"
-					tplRegisterHtml(msgErr, w, r)
+					rUserNew.MsgErr = "User exists try another one!"
+					tplRegisterHtml(rUserNew, w, r)
 				} else {
-
 					// create new user
 					if login.CretaeNew(firstname, lastname, phone, email, password) {
-						http.Redirect(w, r, "/register-success", http.StatusSeeOther)
+						// new session
+						session.Set(session.NameSession(), "email", email, w, r)
+						// sign user, create session
+						http.Redirect(w, r, "/admin", http.StatusSeeOther)
 					} else {
-						msgErr = "something very strange happened with your data, try again!"
-						tplRegisterHtml(msgErr, w, r)
+						rUserNew.MsgErr = "something very strange happened with your data, try again!"
+						tplRegisterHtml(rUserNew, w, r)
 					}
 				}
 			}
 		} else {
 			// error
-			msgErr = "something very strange happened, try again!"
-			tplRegisterHtml(msgErr, w, r)
+			rUserNew.MsgErr = "something very strange happened, try again!"
+			tplRegisterHtml(rUserNew, w, r)
 		}
 
 	} else {
 		//sessionName := session.Get("session_user", "email", w, r)
-		msgErr = ""
-		tplRegisterHtml(msgErr, w, r)
+		rUserNew.MsgErr = ""
+		tplRegisterHtml(rUserNew, w, r)
 	}
 }
 
 // LoginHandlerRegister renders the homepage view template
-func tplRegisterHtml(msgErr string, w http.ResponseWriter, r *http.Request) {
-
+func tplRegisterHtml(ruser *RegisterUser, w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-
 	fullData := map[string]interface{}{
 		"NavigationBar": template.HTML(loginregisterHTML),
-		"msgErr":        msgErr,
+		"msgErr":        ruser.MsgErr,
+		"Firstname":     ruser.Firstname,
+		"Lastname":      ruser.Lastname,
+		"Phone":         ruser.Phone,
+		"Email":         ruser.Email,
 	}
 	assets.Render(w, r, loginRegisterTpl, "login_register_view", fullData)
 }

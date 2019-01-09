@@ -32,6 +32,9 @@ func CretaeNew(firstname, lastname, phone, email, password string) bool {
 	defer afterFuncTimer.Stop()
 
 	data := url.Values{}
+	data.Set("firstname", firstname)
+	data.Set("lastname", lastname)
+	data.Set("phone", phone)
 	data.Set("email", email)
 	data.Set("password", password)
 

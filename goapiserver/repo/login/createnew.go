@@ -11,7 +11,9 @@ import (
 	my "github.com/jeffotoni/goapiwebserver/goapiserver/pkg/mysql"
 )
 
+// create new
 func CretaeNew(firstname, lastname, phone, email, password string) bool {
+
 	// SUCESS
 	var Db = my.MyDb.Mydb
 	// Db...
@@ -21,18 +23,15 @@ func CretaeNew(firstname, lastname, phone, email, password string) bool {
 		return false
 	}
 
-	// crypt blowfish
+	// crypt Blowfish
 	password = crypt.Blowfish(password)
-
 	// insert
 	sqlStatement := `
-INSERT INTO ad_login (logi_firstname,lastname,phone,email,password)
-VALUES ($1, $2, $3, $4, $5, $6)`
-	_, err := Db.Exec(sqlStatement, lastname, phone, email, password)
-
+INSERT INTO ad_login (logi_firstname,logi_lastname,logi_phone,logi_email,logi_password)
+VALUES (?,?,?,?,?)`
+	_, err := Db.Exec(sqlStatement, firstname, lastname, phone, email, password)
 	if err != nil {
 		return false
 	}
-
 	return true
 }

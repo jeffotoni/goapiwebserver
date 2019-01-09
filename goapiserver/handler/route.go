@@ -22,7 +22,6 @@ type GoServerHttp struct {
 }
 
 func StartServer(cfg config.Config) *GoServerHttp {
-
 	// DefaultServeMux
 	mux := http.NewServeMux()
 

@@ -164,7 +164,7 @@ $ curl -H "Authorization: Basic <keyuser>=:<keyaccess>" localhost:5002/api/v1/to
 
 ## out json token
 
-```
+```json
 {
 	"token":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
 	"expires":"2019-02-06",
@@ -183,3 +183,37 @@ $ curl -X POST -H "Content-Type: application/x-www-form-urlencoded" \
 	localhost:5002/api/v1/login
 
 ```
+
+### Create New User
+
+```sh
+
+$ curl -X POST localhost:5002/api/v1/user \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-H "Authorization: Bearer xxxxxxxxxxxxxx" \
+-d 'email=jeff.otoni@gmail.com' \
+-d 'firstname=jefferson' \
+-d 'lastname=otoni lima' \
+-d 'phone=987338383893' \
+-d 'password=12334'
+
+```
+
+```json
+
+{
+	"status":"success",
+	"message":"create user new here."
+}
+
+```
+### It's User Exist
+
+```sh
+
+$ curl -X GET localhost:5002/api/v1/login/<email> \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-H "Authorization: Bearer xxxxxxxxxxxxxxxxxxx"
+
+```
+
