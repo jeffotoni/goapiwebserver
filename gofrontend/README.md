@@ -47,7 +47,13 @@ One more and more efficient way would be to leave the static files on a CDN.
 
 ```docker
 
-$ docker run -d -p 5001:5001 -e HOST_SERVER=0.0.0.0 --restart=always --name gofronted jeffotoni/gofrontend
+$ docker run -p 5001:5001 \
+-e API_SCHEME="https" \
+-e API_URL=backend.domain.com \
+-e HOST_SERVER=0.0.0.0 \
+-e API_PORTA="" \
+--restart=always --name gofronted jeffotoni/gofrontend
+
 $ docker logs -f gofrontend
 
 ```
@@ -60,7 +66,13 @@ We can serve static files using docker without having to upload them to image, w
 
 $ git clone http://github.com/jeffotoni/goapiwebserver
 $ cd goapiwebserver/gofrontend
-$ docker run -d -p 5001:5001 -e HOST_SERVER=0.0.0.0 $(pwd)/web:/web --restart=always --name gofronted jeffotoni/gofrontend
+$ docker run -p 5001:5001 \
+-v $(pwd)/web:/web
+-e API_SCHEME="https" \
+-e API_URL=backend.domain.com \
+-e HOST_SERVER=0.0.0.0 \
+-e API_PORTA="" \
+--restart=always --name gofronted jeffotoni/gofrontend
 
 ```
 
