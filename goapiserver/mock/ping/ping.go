@@ -57,7 +57,6 @@ func ShootUrl(Url string, Token string) string {
 		ping.Message = ""
 		return string(msg2)
 	} else {
-		ping.Msg = ""
 		return string("error")
 	}
 }
