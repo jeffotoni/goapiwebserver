@@ -12,6 +12,7 @@ import (
 
 import (
 	"github.com/gorilla/mux"
+	ctoken "github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/config"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util"
 )
@@ -61,6 +62,8 @@ func Start(cfg config.Config) *FrontEndServer {
 		},
 	}
 
+	ctoken.SetEnvKeys()
+
 	// Add to the WaitGroup for the listener goroutine
 	FrontEndServer.wg.Add(1)
 
@@ -69,10 +72,16 @@ func Start(cfg config.Config) *FrontEndServer {
 
 		// optimized version
 		util.Print("\n\033[0;33mServer FrontEnd:\033[0m \033[0;32mstarted:\033[0m \033[37mHost=" + cfg.Host + "\033[0m\n")
-		util.Print("\033[0;31mHelp:\033[0m\n")
-		util.Print("\033[37mkeys for communication with goapiserver\033[0m\n")
-		util.Print("\033[0;32m")
+		util.Print("\033[0;31mINFO\033[0m\n")
+		util.Print("\033[0;33m")
+		util.Print("     ---------------------- API BACKEND ----------------------\n")
+		util.Print("     - export API_HOST_SERVER:  " + ctoken.API_HOST_SERVER + "\n")
+		util.Print("     - export API_X_KEY:        " + ctoken.API_X_KEY + "\n")
+		util.Print("     - export AUTHORIZATION:  	" + ctoken.AUTHORIZATION_DEFAULT + "\n\n")
+		util.Print("\033[0m\n")
 
+		util.Print("\033[0;32m")
+		util.Print("     ---------------------- API FRONTEND --------------------\n")
 		util.Print("     - export HOST_SERVER:  " + config.HOST_SERVER + "\n")
 		util.Print("     - export PORT_SERVER:  " + config.PORT_SERVER + "\n")
 		util.Print("     - export HOST_MAXBYTE:  " + config.HOST_MAXBYTE + "\n")
