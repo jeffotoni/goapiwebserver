@@ -56,3 +56,10 @@
 	.input-group-addon .fa{
 		font-size: 18px;
 	}
+
+    .text-center-red{
+        @extend text-center;
+        color: red;
+        font-size: 14px;
+        text-align: center;
+    }

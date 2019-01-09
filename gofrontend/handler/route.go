@@ -81,10 +81,11 @@ func Start(cfg config.Config) *FrontEndServer {
 
 		util.Print("     ---------------------------------------------------\n")
 		util.Print("\033[37mStart Server\033[0m\n")
-		util.Print("      [POST] - " + rlogin + "\n")
-		util.Print("      [POST] - " + rregister + "\n")
-		util.Print("      [POST] - " + forgotpassword + "\n")
-		util.Print("      [POST] - " + admin)
+		util.Print("      [POST] - \033[0;33m" + rlogin + "\033[0m\n")
+		util.Print("      [POST] - \033[0;33m" + rregister + "\033[0m\n")
+		util.Print("      [POST] - \033[0;33m" + forgotpassword + "\033[0m\n")
+		util.Print("      [POST] - \033[0;33m" + admin + "\033[0m\n")
+		util.Print("      [POST] - \033[0;33m" + logout + "\033[0m")
 		util.Print("\033[0m\n")
 
 		util.Print("     ---------------------------------------------------\n")
