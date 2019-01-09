@@ -8,6 +8,7 @@ import (
 	"context"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 )
@@ -54,23 +55,22 @@ func GetTokenApiServer() string {
 	ctx, cancel := context.WithCancel(context.TODO())
 	afterFuncTimer := time.AfterFunc(3*time.Second, func() { cancel() })
 	defer afterFuncTimer.Stop()
+	//fmt.Println(API_HOST_SERVER + ApiEndpoint().PostToken)
 	req, err := http.NewRequest("GET", API_HOST_SERVER+ApiEndpoint().PostToken, nil)
 	req = req.WithContext(ctx)
-
+	//fmt.Println(AUTHORIZATION_BASIC)
 	req.Header.Set("Authorization", AUTHORIZATION_BASIC)
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
 	if err != nil {
-
+		log.Println("response Status err:", err)
 		SetToken("")
 		return string("error")
 	}
 	defer resp.Body.Close()
-
 	//log.Println("response Status:", resp.Status)
 	//log.Println("response Headers:", resp.Header)
-
 	if resp.Status == "200 OK" {
 		bodyToken, _ := ioutil.ReadAll(resp.Body)
 		SetToken(string(bodyToken))

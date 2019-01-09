@@ -85,6 +85,30 @@ $ openssl rsa -in private.rsa -pubout > public.rsa.pub
 	- repo
 	- templates
 
+## Database Login
+
+```sql
+-- Drop table
+
+-- DROP TABLE goapiserver.ad_login
+
+CREATE TABLE goapiserver.ad_login (
+	logi_id MEDIUMINT NOT NULL,
+	logi_password VARCHAR(100) NOT NULL,
+	logi_forgotpassword INT DEFAULT 2,
+	logi_phone VARCHAR(30) NOT NULL,
+	logi_email VARCHAR(200) NOT NULL,
+	logi_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	logi_active INT DEFAULT 1 NOT NULL,
+	logi_firstname VARCHAR(100) NOT NULL,
+	logi_lastname VARCHAR(100) NOT NULL,
+	CONSTRAINT `PRIMARY` PRIMARY KEY (logi_id)
+) ;
+CREATE UNIQUE INDEX logi_email ON goapiserver.ad_login (logi_email) ;
+
+```
+
+
 ## Docker
 
 So that goapiserver works correctly you will need to set all environment variables

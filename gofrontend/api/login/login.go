@@ -38,7 +38,6 @@ func LoginValid(token, email, password string) string {
 	u, _ := url.ParseRequestURI(apiUrl)
 	u.Path = resource
 	urlStr := u.String()
-
 	req, err := http.NewRequest("POST", urlStr, strings.NewReader(data.Encode()))
 	req = req.WithContext(ctx)
 
