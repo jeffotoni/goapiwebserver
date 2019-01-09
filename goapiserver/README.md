@@ -178,6 +178,26 @@ $ go run ping
 
 ## curl simulation
 
+### Ping / Test server
+
+```sh
+
+$ curl localhost:5002/api/v1/ping
+
+```
+
+### return from JSON
+
+```json
+
+{
+	"status":"success",
+	"message":"pong",
+	"method";"GET"
+}
+
+```
+
 ### Get Token JWT
 
 ```sh
