@@ -40,12 +40,25 @@ func homeHandler(w http.ResponseWriter, r *http.Request) {
 		// with regex for querys use in endpoints
 		endpoint, nameregex := EndpointRegex(r)
 
+		//////////////////////////////////////////////////////////////
 		// Login regex, search email and validate user
 		// creating regex rule for endpoint
 		if endpoint == SetEndPoint().PostGetLogin && nameregex != "" {
 			if RegexEmail(nameregex) {
 				// ok
 				LoginExist(nameregex, w, r)
+				return
+			}
+		}
+		///////////////////////////// end
+
+		//////////////////////////////////////////////////////////////
+		// user regex, search email and validate user
+		// creating regex rule for endpoint
+		if endpoint == SetEndPoint().PostGetUser && nameregex != "" {
+			if RegexEmail(nameregex) {
+				// ok
+				FindGetUser(nameregex, w, r)
 				return
 			}
 		}

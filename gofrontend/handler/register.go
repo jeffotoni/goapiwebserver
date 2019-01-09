@@ -9,8 +9,8 @@ import (
 	"html/template"
 	"net/http"
 
-	"github.com/jeffotoni/goapiwebserver/gofrontend/api/login"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
+	"github.com/jeffotoni/goapiwebserver/gofrontend/api/user"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/assets"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/session"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util"
@@ -129,13 +129,13 @@ func LoginHandlerRegister(w http.ResponseWriter, r *http.Request) {
 			if stToken.Token != "" && len(stToken.Expires) == 10 {
 				// check user and password
 				// call api login
-				if login.ExistUser(stToken.Token, email) == "success" {
+				if user.ExistUser(stToken.Token, email) == "success" {
 					// can not create user
 					rUserNew.MsgErr = "User exists try another one!"
 					tplRegisterHtml(rUserNew, w, r)
 				} else {
 					// create new user
-					if login.CretaeNew(firstname, lastname, phone, email, password) {
+					if user.CretaeNew(firstname, lastname, phone, email, password) {
 						// new session
 						session.Set(session.NameSession(), "email", email, w, r)
 						// sign user, create session

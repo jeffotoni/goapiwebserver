@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	logg "github.com/jeffotoni/goapiwebserver/goapiserver/logg"
-	"github.com/jeffotoni/goapiwebserver/goapiserver/repo/login"
+	"github.com/jeffotoni/goapiwebserver/goapiserver/repo/user"
 )
 
 func User(w http.ResponseWriter, r *http.Request) {
@@ -20,7 +20,7 @@ func User(w http.ResponseWriter, r *http.Request) {
 		email := r.FormValue("email")
 		password := r.FormValue("password")
 
-		if repol.CretaeNew(firstname, lastname, phone, email, password) {
+		if ruser.CretaeNew(firstname, lastname, phone, email, password) {
 			// Do createUser
 			w.WriteHeader(http.StatusOK)
 			jsonstr := `{"status":"success","message":"create user new with success!"}`
@@ -39,6 +39,41 @@ func User(w http.ResponseWriter, r *http.Request) {
 		// redirect register
 		w.WriteHeader(http.StatusMethodNotAllowed)
 		jsonstr := `{"status":"error","message":"Error the method has to be POST!"}`
+		io.WriteString(w, jsonstr)
+		logg.Show(SetEndPoint().PostGetUser, strings.ToUpper(r.Method), "error", s1)
+		return
+	}
+}
+
+// get login/{email}
+func FindGetUser(email string, w http.ResponseWriter, r *http.Request) {
+	s1 := logg.Start()
+	// valid email
+	email = strings.TrimSpace(strings.ToLower(email))
+
+	if len(email) == 0 {
+		w.WriteHeader(http.StatusOK)
+		jsonstr := `{"status":"error","message":"email can not be empty!"}`
+		io.WriteString(w, jsonstr)
+		logg.Show(SetEndPoint().PostGetUser, strings.ToUpper(r.Method), "error", s1)
+		return
+	}
+
+	// valid email user
+	if ruser.ExistUser(email) {
+		// search user data
+		jsonUser := ruser.GetFind(email)
+		// convert json
+		if jsonUser != "" {
+			w.WriteHeader(http.StatusOK)
+			//jsonstr := `{"status":"success","message":"all data in json"}`
+			io.WriteString(w, jsonUser)
+			logg.Show(SetEndPoint().PostGetUser, strings.ToUpper(r.Method), "success", s1)
+			return
+		}
+	} else {
+		w.WriteHeader(http.StatusOK)
+		jsonstr := `{"status":"error","message":"user not exist"}`
 		io.WriteString(w, jsonstr)
 		logg.Show(SetEndPoint().PostGetUser, strings.ToUpper(r.Method), "error", s1)
 		return

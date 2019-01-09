@@ -82,3 +82,23 @@ func GetTokenApiServer() string {
 		return string("error")
 	}
 }
+
+func FindToken() string {
+
+	jsonToken := GetTokenApiServer()
+
+	// exist, use
+	if jsonToken != "error" {
+
+		//struct message token server
+		var stToken = &TokenStruct{}
+		json.Unmarshal([]byte(jsonToken), &stToken)
+
+		// token exists, can continue
+		if stToken.Token != "" && len(stToken.Expires) == 10 {
+			return stToken.Token
+		}
+	}
+
+	return ""
+}

@@ -1,4 +1,4 @@
-// Front-end in Go server
+// Back-End in Go server
 // @jeffotoni
 // 2019-01-09
 

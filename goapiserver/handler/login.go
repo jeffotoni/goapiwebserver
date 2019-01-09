@@ -7,6 +7,7 @@ import (
 
 	logg "github.com/jeffotoni/goapiwebserver/goapiserver/logg"
 	repol "github.com/jeffotoni/goapiwebserver/goapiserver/repo/login"
+	"github.com/jeffotoni/goapiwebserver/goapiserver/repo/user"
 	//repologin "github.com/jeffotoni/goapiwebserver/goapiserver/repo/login"
 )
 
@@ -79,7 +80,7 @@ func LoginExist(email string, w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if repol.ExistUser(email) {
+	if ruser.ExistUser(email) {
 		w.WriteHeader(http.StatusOK)
 		jsonstr := `{"status":"success","message":"user exist"}`
 		io.WriteString(w, jsonstr)
@@ -92,5 +93,4 @@ func LoginExist(email string, w http.ResponseWriter, r *http.Request) {
 		logg.Show(SetEndPoint().PostGetLogin, strings.ToUpper(r.Method), "error", s1)
 		return
 	}
-
 }

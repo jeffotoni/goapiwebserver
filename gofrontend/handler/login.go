@@ -5,7 +5,6 @@
 package handler
 
 import (
-	"encoding/json"
 	"html/template"
 	"net/http"
 
@@ -61,33 +60,22 @@ func LoginHandler(w http.ResponseWriter, r *http.Request) {
 
 		// make request in apiserver and validate user
 		// Do call to API server here
-
-		jsonToken := token.GetTokenApiServer()
-
+		tokenIs := token.FindToken()
 		// exist, use
-		if jsonToken != "error" {
-
-			//struct message token server
-			var stToken = &token.TokenStruct{}
-			json.Unmarshal([]byte(jsonToken), &stToken)
-
-			// token exists, can continue
-			if stToken.Token != "" && len(stToken.Expires) == 10 {
-				// check user and password
-				// call api login
-				if login.Uservalid(stToken.Token, email, password) == "success" {
-					// create session
-					session.Set(session.NameSession(), "email", email, w, r)
-					http.Redirect(w, r, "/admin", http.StatusSeeOther)
-					// if true create session and redirect admin
-					// if false not create session
-				} else {
-
-					// destroy session
-					session.Destroy(session.NameSession(), "email", w, r)
-					msgErr = "your password or login does not match!"
-					tplLoginHtml(msgErr, w, r)
-				}
+		if tokenIs != "" {
+			// check user and password
+			// call api login
+			if login.LoginValid(tokenIs, email, password) == "success" {
+				// create session
+				session.Set(session.NameSession(), "email", email, w, r)
+				http.Redirect(w, r, "/admin", http.StatusSeeOther)
+				// if true create session and redirect admin
+				// if false not create session
+			} else {
+				// destroy session
+				session.Destroy(session.NameSession(), "email", w, r)
+				msgErr = "your password or login does not match!"
+				tplLoginHtml(msgErr, w, r)
 			}
 		} else {
 

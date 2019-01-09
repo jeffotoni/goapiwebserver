@@ -156,7 +156,7 @@ func Setenv(cfg config.Config) {
 	util.Print("\n")
 	util.Print("\033[0;33m[GET]\033[0m...........{private token}.......... -> \033[0;36m" + SetEndPoint().PostGetLogin + "/{email}")
 	util.Print("\n")
-	util.Print("\033[0;33m[GET]\033[0m...........{private token}.......... -> \033[0;36m" + SetEndPoint().PostGetUser + "/{id}")
+	util.Print("\033[0;33m[GET]\033[0m...........{private token}.......... -> \033[0;36m" + SetEndPoint().PostGetUser + "/{email}")
 	util.Print("\n")
 	util.Print("\033[0;33m[POST]\033[0m...........{private token}......... -> \033[0;36m" + SetEndPoint().PostSignup)
 	util.Print("\n")
