@@ -199,6 +199,20 @@ $ curl -X POST localhost:5002/api/v1/user \
 
 ```
 
+### Update User
+
+```sh
+
+$ curl -X PUT localhost:5002/api/v1/user \
+-H "Content-Type: application/x-www-form-urlencoded" \
+-H "Authorization: Bearer xxxxxxxxxxxxxx" \
+-d 'email=jeff.otoni@gmail.com' \
+-d 'firstname=jefferson' \
+-d 'lastname=otoni lima' \
+-d 'phone=987338383893'
+
+```
+
 ```json
 
 {
