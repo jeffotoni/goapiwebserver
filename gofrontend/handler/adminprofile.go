@@ -20,6 +20,8 @@ type UserProfile struct {
 	Phone     string
 	Email     string
 	MsgErr    string
+	Green     string
+	Red       string
 }
 
 // Templates
@@ -38,6 +40,7 @@ func init() {
 func AdminProfileHandler(w http.ResponseWriter, r *http.Request) {
 	msgErr := ""
 	var PUser = &UserProfile{}
+	PUser.Red = `red`
 	PUser.MsgErr = msgErr
 	if r.Method == http.MethodPost {
 		// fire a post to update the data
@@ -94,7 +97,8 @@ func AdminProfileHandler(w http.ResponseWriter, r *http.Request) {
 				// call api login
 				if user.UpdateProfile(jsonToken, firstname, lastname, phone, email) {
 					// can not create user
-					PUser.MsgErr = "update made successfully"
+					PUser.MsgErr = "updated successfully!"
+					PUser.Green = `green'`
 					tplUserProfileHtml(PUser, w, r)
 				} else {
 
@@ -125,7 +129,9 @@ func tplUserProfileHtml(ruser *UserProfile, w http.ResponseWriter, r *http.Reque
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
 	fullData := map[string]interface{}{
 		"NavigationBar": template.HTML(userprofileHTML),
-		"msgErr":        ruser.MsgErr,
+		"MsgErr":        ruser.MsgErr,
+		"Green":         ruser.Green,
+		"Red":           ruser.Red,
 		"Firstname":     ruser.Firstname,
 		"Lastname":      ruser.Lastname,
 		"Phone":         ruser.Phone,

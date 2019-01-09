@@ -17,12 +17,12 @@ import (
 )
 
 const (
-	rlogin         = "/login"
-	rregister      = "/register"
-	forgotpassword = "/forgot/password"
-	admin          = "/admin"
-	adminprofile   = "/admin/profile"
-	logout         = "/logout"
+	rlogin         = "/login"           //POST/GET
+	rregister      = "/register"        // POST
+	forgotpassword = "/forgot/password" // GET/POST
+	admin          = "/admin"           //POST
+	adminprofile   = "/admin/profile"   //POST/GET/PUT
+	logout         = "/logout"          //POST
 	// test destroy session
 	destroy = "/destroy"
 )
