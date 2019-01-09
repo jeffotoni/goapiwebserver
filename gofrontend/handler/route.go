@@ -21,6 +21,7 @@ const (
 	rregister      = "/register"
 	forgotpassword = "/forgot/password"
 	admin          = "/admin"
+	adminprofile   = "/admin/profile"
 	logout         = "/logout"
 	// test destroy session
 	destroy = "/destroy"
@@ -41,6 +42,7 @@ func Start(cfg config.Config) *FrontEndServer {
 	router.HandleFunc(rregister, LoginHandlerRegister)
 	router.HandleFunc(forgotpassword, ForgotPassHandlerRegister)
 	router.HandleFunc(admin, AdminHandler)
+	router.HandleFunc(adminprofile, AdminProfileHandler)
 	router.HandleFunc(logout, LogoutHandler)
 
 	// test destroy

@@ -23,8 +23,6 @@ var adminTPL *template.Template
 // the inits are running on goruntine, it's dangerous,
 // it can run after main main func.
 func init() {
-
-	// forgot pass
 	adminHTML = assets.GoMustAssetString("templates/admin/admin.html")
 	adminTPL = template.Must(template.New("admin_index").Parse(adminHTML))
 }
