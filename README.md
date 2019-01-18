@@ -25,7 +25,8 @@ the repositories, it is just below, in case I need something else I am at dispos
 github (I'm always updating)
 https://github.com/jeffotoni/goapiwebserver
 
-bitbucket (shared with cyrus@cyza.com)
+bitbucket public
+
 https://bitbucket.org/jeffotoni/je_ot
 
 The two apis are in the same repository to facilitate, but are completely independent.
