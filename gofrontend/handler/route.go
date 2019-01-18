@@ -7,11 +7,11 @@ package handler
 import (
 	"context"
 	"net/http"
+	"strings"
 	"time"
-)
 
-import (
 	"github.com/gorilla/mux"
+
 	ctoken "github.com/jeffotoni/goapiwebserver/gofrontend/api/token"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/config"
 	"github.com/jeffotoni/goapiwebserver/gofrontend/pkg/util"
@@ -49,7 +49,11 @@ func Start(cfg config.Config) *FrontEndServer {
 	// test destroy
 	router.HandleFunc(destroy, DestroyHandler)
 
-	router.PathPrefix("/web/static/").Handler(http.StripPrefix("/web/static/", http.FileServer(http.Dir("./web/static"))))
+	// router.Handle("/web/static", http.NotFoundHandler())
+	// disabled http.FilesServer [browser /web/static/]
+	// Middleware
+	fileServer := http.FileServer(http.Dir("./web/static"))
+	router.PathPrefix("/web/static/").Handler(http.StripPrefix("/web/static", DisabledFs(fileServer)))
 
 	// Create the HTML Server
 	FrontEndServer := FrontEndServer{
@@ -111,6 +115,16 @@ func Start(cfg config.Config) *FrontEndServer {
 	}()
 
 	return &FrontEndServer
+}
+
+func DisabledFs(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if strings.HasSuffix(r.URL.Path, "/") {
+			http.NotFound(w, r)
+			return
+		}
+		next.ServeHTTP(w, r)
+	})
 }
 
 // Stop turns off the HTML Server
