@@ -38,6 +38,9 @@ The service has been hosted on AWS and can be viewed working at this link: https
 Creating a mini framework in Go for the backend and APIS frontend.
 This scenario has much to improve.
 ```bash
+<table>
+<tr>
+<td>
 - New User Registration 			(100%)
 - Login 							        (100%)
 - Logout 							        (100%)
@@ -51,6 +54,9 @@ This scenario has much to improve.
 - google-map 						      (0%) [lacked time left last]
 - address fields 					    (0%) [lacked time left last]
 - swagger documentation 			(0%) [lacked time left last]
+</td>
+</tr>
+</table>
 ```
 
 ## INSTALLATION
