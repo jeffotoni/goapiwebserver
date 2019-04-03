@@ -37,21 +37,23 @@ The service has been hosted on AWS and can be viewed working at this link: https
 
 Creating a mini framework in Go for the backend and APIS frontend.
 This scenario has much to improve.
-```bash
-- New User Registration 			(100%)
-- Login 							        (100%)
-- Logout 							        (100%)
-- Update Profile 					    (100%)
-- Page admin/perfil (blocked) (100%)
-- Tests                       (100%)
-- Forgot password 					  (performed 60%)
-- Update password 					  (performed 70%)
-- Update password 					  (performed 70%)
-- integration with google api (30%) [lacked time left last]
-- google-map 						      (0%) [lacked time left last]
-- address fields 					    (0%) [lacked time left last]
-- swagger documentation 			(0%) [lacked time left last]
-```
+
+| Functionalities  					        |     Developed   |
+| --------------------------------- | --------------- |
+| New User Registration 			      |       (100%)    |
+| Login 							              |       (100%)    |
+| Logout 							              |       (100%)    |
+| Update Profile 					          |       (100%)    |
+| Page admin/perfil (blocked)       |       (100%)    |
+| Tests                             |       (100%)    |
+| Forgot password 					        | (performed 60%) |
+| Update password 					        | (performed 70%) |
+| Update password 					        | (performed 70%) |
+| integration with google api       |       (30%)     |
+| google-map 						            |       (0%)      |
+| address fields 					          |       (0%)      |
+| swagger documentation 			      |       (0%)      |
+
 
 ## INSTALLATION
 Note: In the **README** of each API is documenting all the steps and details.
