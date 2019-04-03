@@ -39,17 +39,17 @@ Creating a mini framework in Go for the backend and APIS frontend.
 This scenario has much to improve.
 ```bash
 - New User Registration 			(100%)
-- Login 							(100%)
-- Logout 							(100%)
-- Update Profile 					(100%)
-- Page admin/perfil (blocked) 		(100%)
+- Login 							        (100%)
+- Logout 							        (100%)
+- Update Profile 					    (100%)
+- Page admin/perfil (blocked) (100%)
 - Tests (100%)
-- Forgot password 					(performed 60%)
-- Update password 					(performed 70%)
-- Update password 					(performed 70%)
-- integration with google api 		(30%) [lacked time left last]
-- google-map 						(0%) [lacked time left last]
-- address fields 					(0%) [lacked time left last]
+- Forgot password 					  (performed 60%)
+- Update password 					  (performed 70%)
+- Update password 					  (performed 70%)
+- integration with google api (30%) [lacked time left last]
+- google-map 						      (0%) [lacked time left last]
+- address fields 					    (0%) [lacked time left last]
 - swagger documentation 			(0%) [lacked time left last]
 ```
 
@@ -115,6 +115,7 @@ the packages that I used.
 jwt-go v3.2.0
 tollbooth
 go-sql-driver
+gorilla/mux
 ```
 
 In the FRONT-END API, gorillamux was used to manage the routes and sessions.
