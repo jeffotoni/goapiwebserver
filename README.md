@@ -37,7 +37,7 @@ The service has been hosted on AWS and can be viewed working at this link: https
 
 Creating a mini framework in Go for the backend and APIS frontend.
 This scenario has much to improve.
-
+```bash
 - New User Registration 			(100%)
 - Login 							(100%)
 - Logout 							(100%)
@@ -51,6 +51,7 @@ This scenario has much to improve.
 - google-map 						(0%) [lacked time left last]
 - address fields 					(0%) [lacked time left last]
 - swagger documentation 			(0%) [lacked time left last]
+```
 
 ## INSTALLATION
 Note: In the **README** of each API is documenting all the steps and details.
@@ -59,10 +60,12 @@ Note: In the **README** of each API is documenting all the steps and details.
 Will download, enter the api and do make, the command will compile and run
 
 ## Installing APISERVER (BACKEND)
+
+```bash
 $ git clone https://github.com/jeffotoni/goapiwebserver.git
 $ cd goapiserver
 $ make build
-
+```
 ## Installing APIFRONTEND (FRONTEND)
 $ cd gofrontend
 $ make build
@@ -73,6 +76,8 @@ have to configure the network or the domain of the backend.
 You can use nginx to serve as a proxy if you have more services running on the same machine.
 
 ## API - BACKEND
+
+```bash
 $ docker run -p 5002:5002  \
 -e REQUEST_SEC=10000 \
 -e DB_HOST="xxxx" \
@@ -83,14 +88,18 @@ $ docker run -p 5002:5002  \
 -e DB_SORCE=mysql \
 -e HOST_SERVER=0.0.0.0 \
 --rm --name goapiserver jeffotoni / goapiserver
+```
 
 ## API - FRONTEND
+
+```bash
 $ docker run -p 5001:5001 \
 -e API_SCHEME="https" \
 -e API_URL=xxxxx \
 -e HOST_SERVER=0.0.0.0 \
 -e API_PORTA="" \
 --restart=always --name gofronted jeffotoni/gofrontend
+```
 
 ## Simulations were created using cURL, everything is in the README of each API.
 
@@ -101,8 +110,11 @@ I used go mod to manage the packages so in go.mod you will be able to see
 the packages that I used.
 
 ## Libs used:
+
+```bash
 jwt-go v3.2.0
 tollbooth
 go-sql-driver
+```
 
 In the FRONT-END API, gorillamux was used to manage the routes and sessions.
